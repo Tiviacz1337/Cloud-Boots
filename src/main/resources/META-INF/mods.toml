@@ -1,0 +1,31 @@
+
+modLoader="javafml"
+
+loaderVersion="[31,)"
+
+issueTrackerURL="https://github.com/Tiviacz1337/CloudBoots/issues"
+
+[[mods]]
+
+modId="cloudboots"
+
+version="${mod_version}"
+
+displayName="Cloud Boots Mod"
+
+updateJSONURL="https://gist.githubusercontent.com/Tiviacz1337/3f4df725e9107ae6093e07c498515d01/raw"
+
+displayURL="https://www.curseforge.com/minecraft/mc-mods/cloud-boots-mod"
+
+authors="Tiviacz1337"
+
+description='''
+Cloud Boots Mod for Minecraft ${minecraft_version}!
+'''
+
+[[dependencies.cloudboots]]
+    modId="forge"
+    mandatory=true
+    versionRange="[${forge_version},)"
+    ordering="NONE"
+    side="BOTH"

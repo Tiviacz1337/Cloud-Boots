@@ -1,45 +1,120 @@
 buildscript {
     repositories {
+        maven { url = 'https://files.minecraftforge.net/maven' }
         jcenter()
-        maven { url = "https://files.minecraftforge.net/maven" }
+        mavenCentral()
     }
     dependencies {
-        classpath 'net.minecraftforge.gradle:ForgeGradle:2.3-SNAPSHOT'
+        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '3.+', changing: true
     }
 }
+apply plugin: 'net.minecraftforge.gradle'
+// Only edit below this line, the above code adds and enables the necessary things for Forge to be setup.
+apply plugin: 'eclipse'
+apply plugin: 'maven-publish'
 
-apply plugin: 'net.minecraftforge.gradle.forge'
-
-version = "${mc_version}-${mod_version}"
+version = "${minecraft_version}-${mod_version}"
 group = "com.tiviacz.cloudboots"
-archivesBaseName = "${mod_name}"
+archivesBaseName = "CloudBoots"
 
-sourceCompatibility = targetCompatibility = '1.8'
-compileJava {
-    sourceCompatibility = targetCompatibility = '1.8'
-}
+sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '1.8'
 
 minecraft {
-    version = "${mc_version}-${forge_version}"
-    runDir = "run"
-    mappings = "${mcp_mappings}"
-    makeObfSourceJar = false
+
+    mappings channel: 'snapshot', version: "${forge_mappings_version}"
+
+    runs {
+        client {
+            workingDirectory project.file('run')
+
+            property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
+
+            property 'forge.logging.console.level', 'debug'
+
+            mods {
+                cloudboots {
+                    source sourceSets.main
+                }
+            }
+        }
+
+        server {
+            workingDirectory project.file('run')
+
+            property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
+
+            property 'forge.logging.console.level', 'debug'
+
+            mods {
+                cloudboots {
+                    source sourceSets.main
+                }
+            }
+        }
+
+        data {
+            workingDirectory project.file('run')
+
+            property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
+
+            property 'forge.logging.console.level', 'debug'
+
+            args '--mod', 'cloudboots', '--all', '--output', file('src/generated/resources/')
+
+            mods {
+                cloudboots {
+                    source sourceSets.main
+                }
+            }
+        }
+    }
 }
 
-dependencies {}
+dependencies {
+
+    minecraft 'net.minecraftforge:forge:' + "${minecraft_version}" + '-' + "${forge_version}"
+
+}
 
 processResources {
-
-    inputs.property "version", project.version
-    inputs.property "mcversion", project.minecraft.version
-
+    exclude '**/*.xcf'
     from(sourceSets.main.resources.srcDirs) {
-        include 'mcmod.info'
-                
-        expand 'version':project.version, 'mcversion':project.minecraft.version
+        include 'META-INF/mods.toml'
+
+        expand 'mod_version': mod_version, 'minecraft_version': minecraft_version, 'forge_version': forge_version_toml
     }
-        
+
     from(sourceSets.main.resources.srcDirs) {
-        exclude 'mcmod.info'
+        exclude 'META-INF/mods.toml'
+    }
+}
+
+
+jar {
+    manifest {
+        attributes([
+            "Specification-Title": "Cloud Boots",
+            "Specification-Vendor": "Tiviacz",
+            "Specification-Version": "1", // We are version 1 of ourselves
+            "Implementation-Title": project.name,
+            "Implementation-Version": "${version}",
+            "Implementation-Vendor" :"Tiviacz",
+            "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
+        ])
+    }
+}
+
+jar.finalizedBy('reobfJar') 
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            artifact jar
+        }
+    }
+    repositories {
+        maven {
+            url "file:///${project.projectDir}/mcmodsrepo"
+        }
     }
 }

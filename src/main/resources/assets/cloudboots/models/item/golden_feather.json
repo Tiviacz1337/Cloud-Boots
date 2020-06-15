@@ -1,6 +1,6 @@
 {
     "parent": "item/generated",
     "textures": {
-        "layer0": "cloudboots:items/golden_feather"
+        "layer0": "cloudboots:item/golden_feather"
     }
 }

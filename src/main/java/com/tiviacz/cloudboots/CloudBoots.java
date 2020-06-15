@@ -1,36 +1,38 @@
 package com.tiviacz.cloudboots;
 
-import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;
-import net.minecraftforge.client.event.ModelRegistryEvent;
-import net.minecraftforge.client.model.ModelLoader;
-import net.minecraftforge.event.RegistryEvent.Register;
+import net.minecraft.item.ItemGroup;
+import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
+import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.minecraftforge.fml.event.lifecycle.InterModEnqueueEvent;
+import net.minecraftforge.fml.event.lifecycle.InterModProcessEvent;
+import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.minecraftforge.registries.DeferredRegister;
+import net.minecraftforge.registries.ForgeRegistries;
 
-@Mod(modid = CloudBoots.MODID, name = CloudBoots.NAME, version = CloudBoots.VERSION)
-@EventBusSubscriber
+@Mod(CloudBoots.MODID)
 public class CloudBoots
-{	
-	public static final String MODID = "cloudboots";
-	public static final String NAME = "Cloud Boots Mod";
-	public static final String VERSION = "1.4.1";
+{
+    public static final String MODID = "cloudboots";
+	
+    public CloudBoots() 
+    {
+        final IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
+        ModItems.ITEMS.register(modEventBus);
+    }
 
-	public static final Item CLOUD_BOOTS = new ItemCloudBoots();
-	public static final Item GOLDEN_FEATHER = new ItemGoldenFeather();
-	
-	@SubscribeEvent
-	public static void onItemRegister(Register<Item> event)
-	{
-		event.getRegistry().register(CLOUD_BOOTS);
-		event.getRegistry().register(GOLDEN_FEATHER);
-	}
-	
-	@SubscribeEvent
-	public static void onModelRegister(ModelRegistryEvent event)
-	{
-		ModelLoader.setCustomModelResourceLocation(CLOUD_BOOTS, 0, new ModelResourceLocation(CLOUD_BOOTS.getRegistryName(), "inventory"));	
-		ModelLoader.setCustomModelResourceLocation(GOLDEN_FEATHER, 0, new ModelResourceLocation(GOLDEN_FEATHER.getRegistryName(), "inventory"));	
-	}
+    public static class ModItems
+    {
+        public static final DeferredRegister<Item> ITEMS = new DeferredRegister<>(ForgeRegistries.ITEMS, CloudBoots.MODID);
+
+        public static final RegistryObject<Item> CLOUD_BOOTS = ITEMS.register("cloud_boots", () -> new CloudBootsItem(new Item.Properties().group(ItemGroup.COMBAT)));
+        public static final RegistryObject<Item> GOLDEN_FEATHER = ITEMS.register("golden_feather", () -> new GoldenFeatherItem(new Item.Properties().group(ItemGroup.MISC).maxStackSize(1).defaultMaxDamage(385)));
+    }
 }
