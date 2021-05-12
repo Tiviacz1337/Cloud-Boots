@@ -17,8 +17,9 @@ version = "${minecraft_version}-${mod_version}"
 group = "com.tiviacz.cloudboots"
 archivesBaseName = "CloudBoots"
 
-sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '1.8'
+sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '1.8' // Need this here so eclipse task generates correctly.
 
+println('Java: ' + System.getProperty('java.version') + ' JVM: ' + System.getProperty('java.vm.version') + '(' + System.getProperty('java.vendor') + ') Arch: ' + System.getProperty('os.arch'))
 minecraft {
 
     mappings channel: 'snapshot', version: "${forge_mappings_version}"
@@ -59,7 +60,7 @@ minecraft {
 
             property 'forge.logging.console.level', 'debug'
 
-            args '--mod', 'cloudboots', '--all', '--output', file('src/generated/resources/')
+            args '--mod', 'cloudboots', '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/')
 
             mods {
                 cloudboots {
@@ -70,25 +71,13 @@ minecraft {
     }
 }
 
+sourceSets.main.resources { srcDir 'src/generated/resources' }
+
 dependencies {
 
     minecraft 'net.minecraftforge:forge:' + "${minecraft_version}" + '-' + "${forge_version}"
 
 }
-
-processResources {
-    exclude '**/*.xcf'
-    from(sourceSets.main.resources.srcDirs) {
-        include 'META-INF/mods.toml'
-
-        expand 'mod_version': mod_version, 'minecraft_version': minecraft_version, 'forge_version': forge_version_toml
-    }
-
-    from(sourceSets.main.resources.srcDirs) {
-        exclude 'META-INF/mods.toml'
-    }
-}
-
 
 jar {
     manifest {

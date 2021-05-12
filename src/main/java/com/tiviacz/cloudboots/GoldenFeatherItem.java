@@ -26,7 +26,7 @@ public class GoldenFeatherItem extends Item
 				stack.attemptDamageItem(1, worldIn.rand, (ServerPlayerEntity)entityIn);
 				entityIn.fallDistance = 0.0F;
 				
-				if(!worldIn.isRemote && worldIn instanceof ServerWorld)
+				if(!worldIn.isRemote && worldIn instanceof ServerWorld && CloudBootsConfigurator.goldenFeatherSpawnParticles)
 				{
 					((ServerWorld)worldIn).spawnParticle(ParticleTypes.CLOUD, entityIn.prevPosX, entityIn.prevPosY, entityIn.prevPosZ, 3, 0, 0, 0, (worldIn.rand.nextFloat() - 0.5F));
 				}
@@ -42,10 +42,6 @@ public class GoldenFeatherItem extends Item
 	@Override
 	public boolean getIsRepairable(ItemStack toRepair, ItemStack repair)
     {
-        if(repair.getItem() == Items.GOLD_INGOT)
-        {
-        	return true;
-        }
-        return false;
-    }
+		return repair.getItem() == Items.GOLD_INGOT;
+	}
 }

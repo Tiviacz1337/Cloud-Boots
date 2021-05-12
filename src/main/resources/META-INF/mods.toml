@@ -1,7 +1,9 @@
 
 modLoader="javafml"
 
-loaderVersion="[31,)"
+loaderVersion="[35,)"
+
+license="All Rights Reserved"
 
 issueTrackerURL="https://github.com/Tiviacz1337/CloudBoots/issues"
 
@@ -9,7 +11,7 @@ issueTrackerURL="https://github.com/Tiviacz1337/CloudBoots/issues"
 
 modId="cloudboots"
 
-version="${mod_version}"
+version="2.1.0"
 
 displayName="Cloud Boots Mod"
 
@@ -19,13 +21,4 @@ displayURL="https://www.curseforge.com/minecraft/mc-mods/cloud-boots-mod"
 
 authors="Tiviacz1337"
 
-description='''
-Cloud Boots Mod for Minecraft ${minecraft_version}!
-'''
-
-[[dependencies.cloudboots]]
-    modId="forge"
-    mandatory=true
-    versionRange="[${forge_version},)"
-    ordering="NONE"
-    side="BOTH"
+description='Cloud Boots Mod for Minecraft 1.16.4!'
