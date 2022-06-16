@@ -52,10 +52,8 @@ public class CloudBootsItem extends ArmorItem
 	@Override
 	public void inventoryTick(ItemStack stack, Level level, Entity entityIn, int itemSlot, boolean isSelected)
 	{
-		if(entityIn instanceof Player)
+		if(entityIn instanceof Player player)
 		{
-			Player player = (Player)entityIn;
-			
 			if(player.getItemBySlot(EquipmentSlot.FEET).getItem() == this)
 			{
 				player.addEffect(new MobEffectInstance(MobEffects.JUMP, 0, 4, false, false));
@@ -66,9 +64,9 @@ public class CloudBootsItem extends ArmorItem
 					
 					if(player.fallDistance >= 1.0F)
 					{
-						if(!level.isClientSide && level instanceof ServerLevel)
+						if(!level.isClientSide && level instanceof ServerLevel server)
 						{
-							((ServerLevel)level).sendParticles(ParticleTypes.CLOUD, player.xo, player.yo, player.zo, 3, 0, 0, 0, (level.random.nextFloat() - 0.5F));
+							server.sendParticles(ParticleTypes.CLOUD, player.xo, player.yo, player.zo, 3, 0, 0, 0, (level.random.nextFloat() - 0.5F));
 						}
 						
 					/*	else if(world.isRemote)
@@ -84,9 +82,9 @@ public class CloudBootsItem extends ArmorItem
 				
 				if(player.isSprinting())
 				{
-					if(!level.isClientSide && level instanceof ServerLevel)
+					if(!level.isClientSide && level instanceof ServerLevel server)
 					{
-						((ServerLevel)level).sendParticles(ParticleTypes.CLOUD, player.xo, player.yo, player.zo, 1, 0, 0, 0, (level.random.nextFloat() - 0.5F));
+						server.sendParticles(ParticleTypes.CLOUD, player.xo, player.yo, player.zo, 1, 0, 0, 0, (level.random.nextFloat() - 0.5F));
 					}
 	
 				/*	else if(world.isRemote)
