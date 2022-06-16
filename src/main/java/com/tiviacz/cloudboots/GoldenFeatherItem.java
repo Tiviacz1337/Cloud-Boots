@@ -1,13 +1,23 @@
 package com.tiviacz.cloudboots;
 
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.particles.ParticleTypes;
-import net.minecraft.world.World;
-import net.minecraft.world.server.ServerWorld;
+import net.minecraft.core.Direction;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.level.Level;
+import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.capabilities.ICapabilityProvider;
+import net.minecraftforge.common.util.LazyOptional;
+import top.theillusivec4.curios.api.CuriosCapability;
+import top.theillusivec4.curios.api.type.capability.ICurio;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 public class GoldenFeatherItem extends Item
 {
@@ -17,18 +27,18 @@ public class GoldenFeatherItem extends Item
 	}
 
 	@Override
-	public void inventoryTick(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected) 
+	public void inventoryTick(ItemStack stack, Level level, Entity entityIn, int itemSlot, boolean isSelected)
 	{
-		if(isSelected && entityIn instanceof ServerPlayerEntity)
+		if(isSelected && entityIn instanceof ServerPlayer)
 		{
 			if(entityIn.fallDistance >= 3.0F)
 			{
-				stack.attemptDamageItem(1, worldIn.rand, (ServerPlayerEntity)entityIn);
+				stack.hurt(1, level.random, (ServerPlayer)entityIn);
 				entityIn.fallDistance = 0.0F;
 				
-				if(!worldIn.isRemote && worldIn instanceof ServerWorld && CloudBootsConfigurator.goldenFeatherSpawnParticles)
+				if(!level.isClientSide && level instanceof ServerLevel)
 				{
-					((ServerWorld)worldIn).spawnParticle(ParticleTypes.CLOUD, entityIn.prevPosX, entityIn.prevPosY, entityIn.prevPosZ, 3, 0, 0, 0, (worldIn.rand.nextFloat() - 0.5F));
+					((ServerLevel)level).sendParticles(ParticleTypes.CLOUD, entityIn.xo, entityIn.yo, entityIn.zo, 3, 0, 0, 0, (level.random.nextFloat() - 0.5F));
 				}
 				
 		/*		for(int i = 0; i < 3; i++)
@@ -40,8 +50,29 @@ public class GoldenFeatherItem extends Item
     }
 	
 	@Override
-	public boolean getIsRepairable(ItemStack toRepair, ItemStack repair)
+	public boolean isValidRepairItem(ItemStack toRepair, ItemStack repair)
     {
 		return repair.getItem() == Items.GOLD_INGOT;
+	}
+
+	@Nullable
+	@Override
+	public ICapabilityProvider initCapabilities(ItemStack stack, @Nullable CompoundTag nbt)
+	{
+		if(CloudBoots.enableCurios())
+		{
+			return new ICapabilityProvider()
+			{
+				final LazyOptional<ICurio> curio = LazyOptional.of(() -> GoldenFeatherCurio.createGoldenFeatherCurioProvider(stack));
+
+				@Nonnull
+				@Override
+				public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side)
+				{
+					return CuriosCapability.ITEM.orEmpty(cap, curio);
+				}
+			};
+		}
+		return null;
 	}
 }
