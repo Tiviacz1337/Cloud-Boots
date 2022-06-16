@@ -31,11 +31,17 @@ public class CloudBootsItem extends ArmorItem
 	{
 		super(CloudArmorMaterial.CLOUD, EquipmentSlotType.FEET, builder);
 
-		Multimap<Attribute, AttributeModifier> attributeMap = getAttributeModifiers(EquipmentSlotType.FEET);
+		Multimap<Attribute, AttributeModifier> attributeMap = getDefaultAttributeModifiers(EquipmentSlotType.FEET);
 		ImmutableMultimap.Builder<Attribute, AttributeModifier> modifierBuilder = ImmutableMultimap.builder();
 		modifierBuilder.putAll(attributeMap);
-		modifierBuilder.put(Attributes.MOVEMENT_SPEED, new AttributeModifier("CloudBootsMovementSpeedModifier", CloudBootsConfigurator.bonusSpeed, Operation.MULTIPLY_TOTAL));
+		modifierBuilder.put(Attributes.MOVEMENT_SPEED, new AttributeModifier("CloudBootsMovementSpeedModifier", 0.15D, Operation.MULTIPLY_TOTAL));
 		this.attributeModifier = modifierBuilder.build();
+	}
+
+	@Override
+	public IArmorMaterial getMaterial()
+	{
+		return CloudArmorMaterial.CLOUD;
 	}
 	
 	@Override
@@ -51,19 +57,19 @@ public class CloudBootsItem extends ArmorItem
 		{
 			PlayerEntity player = (PlayerEntity)entityIn;
 			
-			if(player.getItemStackFromSlot(EquipmentSlotType.FEET).getItem() == this)
+			if(player.getItemBySlot(EquipmentSlotType.FEET).getItem() == this)
 			{
-				player.addPotionEffect(new EffectInstance(Effects.JUMP_BOOST, 0, CloudBootsConfigurator.jumpBoost, false, false));
+				player.addEffect(new EffectInstance(Effects.JUMP, 0, 4, false, false));
 				
 				if(!player.isOnGround())
 				{
-					player.jumpMovementFactor += CloudBootsConfigurator.jumpMovementFactor;
+					player.flyingSpeed += 0.012D;
 					
 					if(player.fallDistance >= 1.0F)
 					{
-						if(!worldIn.isRemote && worldIn instanceof ServerWorld && CloudBootsConfigurator.spawnParticles)
+						if(!worldIn.isClientSide && worldIn instanceof ServerWorld)
 						{
-							((ServerWorld)worldIn).spawnParticle(ParticleTypes.CLOUD, player.lastTickPosX, player.lastTickPosY, player.lastTickPosZ, 3, 0, 0, 0, (random.nextFloat() - 0.5F));
+							((ServerWorld)worldIn).sendParticles(ParticleTypes.CLOUD, player.xOld, player.yOld, player.zOld, 3, 0, 0, 0, (random.nextFloat() - 0.5F));
 						}
 						
 					/*	else if(world.isRemote)
@@ -74,18 +80,16 @@ public class CloudBootsItem extends ArmorItem
 							}
 						} */
 
-						if(!CloudBootsConfigurator.fallDamage)
-						{
-							player.fallDistance = 0F;
-						}
+						player.fallDistance = 0F;
+
 					}
 				}
 				
 				if(player.isSprinting())
 				{
-					if(!worldIn.isRemote && worldIn instanceof ServerWorld && CloudBootsConfigurator.spawnParticles)
+					if(!worldIn.isClientSide && worldIn instanceof ServerWorld)
 					{
-						((ServerWorld)worldIn).spawnParticle(ParticleTypes.CLOUD, player.lastTickPosX, player.lastTickPosY, player.lastTickPosZ, 1, 0, 0, 0, (random.nextFloat() - 0.5F));
+						((ServerWorld)worldIn).sendParticles(ParticleTypes.CLOUD, player.xOld, player.yOld, player.zOld, 1, 0, 0, 0, (random.nextFloat() - 0.5F));
 					}
 	
 				/*	else if(world.isRemote)
@@ -98,9 +102,9 @@ public class CloudBootsItem extends ArmorItem
 	}
 	
 	@Override
-	public boolean getIsRepairable(ItemStack toRepair, ItemStack repair)
+	public boolean isValidRepairItem(ItemStack toRepair, ItemStack repair)
 	{
-		return super.getIsRepairable(toRepair, repair);
+		return super.isValidRepairItem(toRepair, repair);
 	}
 
 	public static class CloudArmorMaterial implements IArmorMaterial
@@ -108,33 +112,33 @@ public class CloudBootsItem extends ArmorItem
 		public static final CloudArmorMaterial CLOUD = new CloudArmorMaterial();
 		
 		@Override
-		public int getDurability(EquipmentSlotType slotIn) 
+		public int getDurabilityForSlot(EquipmentSlotType slotIn)
 		{
-			return CloudBootsConfigurator.durability;
+			return 1337;
 		}
 
 		@Override
-		public int getDamageReductionAmount(EquipmentSlotType slotIn) 
+		public int getDefenseForSlot(EquipmentSlotType slotIn)
 		{
-			return CloudBootsConfigurator.damageReductionAmount;
+			return 3;
 		}
 
 		@Override
-		public int getEnchantability() 
+		public int getEnchantmentValue()
 		{
-			return CloudBootsConfigurator.enchantability;
+			return 10;
 		}
 
 		@Override
-		public SoundEvent getSoundEvent() 
+		public SoundEvent getEquipSound()
 		{
-			return SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND;
+			return SoundEvents.ARMOR_EQUIP_DIAMOND;
 		}
 
 		@Override
-		public Ingredient getRepairMaterial() 
+		public Ingredient getRepairIngredient()
 		{
-			return new LazyValue<>(() -> Ingredient.fromItems(Items.GOLD_INGOT, CloudBoots.ModItems.GOLDEN_FEATHER.get())).getValue();
+			return new LazyValue<>(() -> Ingredient.of(Items.GOLD_INGOT, CloudBoots.ModItems.GOLDEN_FEATHER.get())).get();
 		}
 
 		@Override
@@ -146,13 +150,13 @@ public class CloudBootsItem extends ArmorItem
 		@Override
 		public float getToughness() 
 		{
-			return CloudBootsConfigurator.toughness;
+			return 2.0F;
 		}
 
 		@Override
 		public float getKnockbackResistance()
 		{
-			return CloudBootsConfigurator.knockbackResistance;
+			return 0.0F;
 		}
 	}
 }

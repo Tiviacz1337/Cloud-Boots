@@ -1,7 +1,7 @@
 
 modLoader="javafml"
 
-loaderVersion="[35,)"
+loaderVersion="[36,)"
 
 license="All Rights Reserved"
 
@@ -11,7 +11,7 @@ issueTrackerURL="https://github.com/Tiviacz1337/CloudBoots/issues"
 
 modId="cloudboots"
 
-version="2.1.0"
+version="2.1.1"
 
 displayName="Cloud Boots Mod"
 
@@ -21,4 +21,4 @@ displayURL="https://www.curseforge.com/minecraft/mc-mods/cloud-boots-mod"
 
 authors="Tiviacz1337"
 
-description='Cloud Boots Mod for Minecraft 1.16.4!'
+description='Cloud Boots Mod for Minecraft 1.16.5!'
