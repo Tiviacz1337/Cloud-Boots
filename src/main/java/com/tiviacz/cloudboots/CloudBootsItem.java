@@ -48,7 +48,7 @@ public class CloudBootsItem extends ArmorItem
 
                 if(!player.isOnGround())
                 {
-                    player.flyingSpeed += 0.012D;
+                    player.airStrafingSpeed += 0.012D;
 
                     if(player.fallDistance >= 1.0F)
                     {
