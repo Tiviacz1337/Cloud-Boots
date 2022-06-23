@@ -1,50 +1,30 @@
 package com.tiviacz.cloudboots;
 
+import net.fabricmc.api.ModInitializer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
-import net.minecraftforge.fml.InterModComms;
-import net.minecraftforge.fml.ModList;
-import net.minecraftforge.fml.RegistryObject;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.event.lifecycle.InterModEnqueueEvent;
-import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.ForgeRegistries;
-import top.theillusivec4.curios.api.CuriosApi;
-import top.theillusivec4.curios.api.SlotTypeMessage;
-import top.theillusivec4.curios.api.SlotTypePreset;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.registry.Registry;
 
-@Mod(CloudBoots.MODID)
-public class CloudBoots
+public class CloudBoots implements ModInitializer
 {
     public static final String MODID = "cloudboots";
-    private static boolean curiosLoaded;
-	
-    public CloudBoots()
+
+    @Override
+    public void onInitialize()
     {
-        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::onEnqueueIMC);
-
-        ModItems.ITEMS.register(FMLJavaModLoadingContext.get().getModEventBus());
-
-        curiosLoaded = ModList.get().isLoaded("curios");
-    }
-
-    private void onEnqueueIMC(InterModEnqueueEvent event)
-    {
-        if(!enableCurios()) return;
-        InterModComms.sendTo(CuriosApi.MODID, SlotTypeMessage.REGISTER_TYPE, () -> SlotTypePreset.CURIO.getMessageBuilder().build());
-    }
-
-    public static boolean enableCurios()
-    {
-        return curiosLoaded;
+        ModItems.init();
     }
 
     public static class ModItems
     {
-        public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, CloudBoots.MODID);
+        public static Item CLOUD_BOOTS;
+        public static Item GOLDEN_FEATHER;
 
-        public static final RegistryObject<Item> CLOUD_BOOTS = ITEMS.register("cloud_boots", () -> new CloudBootsItem(new Item.Properties().tab(ItemGroup.TAB_COMBAT)));
-        public static final RegistryObject<Item> GOLDEN_FEATHER = ITEMS.register("golden_feather", () -> new GoldenFeatherItem(new Item.Properties().tab(ItemGroup.TAB_MISC).stacksTo(1).defaultDurability(385)));
+        public static void init()
+        {
+            CLOUD_BOOTS = Registry.register(Registry.ITEM, new Identifier(CloudBoots.MODID, "cloud_boots"), new CloudBootsItem(new Item.Settings().group(ItemGroup.COMBAT)));
+            GOLDEN_FEATHER = Registry.register(Registry.ITEM, new Identifier(CloudBoots.MODID, "golden_feather"), new GoldenFeatherItem(new Item.Settings().group(ItemGroup.MISC).maxCount(1).maxDamageIfAbsent(385)));
+        }
     }
 }

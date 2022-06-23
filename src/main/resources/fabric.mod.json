@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 1,
+  "id": "cloudboots",
+  "version": "${version}",
+
+  "name": "Cloud Boots",
+  "description": "Cloud Boots for Fabric!",
+  "authors": [
+    "Tiviacz1337"
+  ],
+  "contact": {
+    "homepage": "https://www.curseforge.com/minecraft/mc-mods/cloud-boots",
+    "sources": "https://github.com/Tiviacz1337/CloudBoots",
+    "issues": "https://github.com/Tiviacz1337/CloudBoots/issues"
+  },
+
+  "license": "All Rights Reserved",
+
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "com.tiviacz.cloudboots.CloudBoots"
+    ]
+  },
+
+  "mixins": [
+    "cloudboots.mixins.json"
+  ],
+
+  "depends": {
+    "fabricloader": ">=0.11.3",
+    "fabric": "*",
+    "minecraft": "1.16.x"
+  },
+  "suggests": {
+    "modmenu": "*"
+  }
+}
