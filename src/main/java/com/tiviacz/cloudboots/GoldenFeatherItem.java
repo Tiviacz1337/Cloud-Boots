@@ -31,14 +31,14 @@ public class GoldenFeatherItem extends Item
 	{
 		if(isSelected && entityIn instanceof ServerPlayer serverPlayer)
 		{
-			if(entityIn.fallDistance >= 3.0F)
+			if(serverPlayer.fallDistance >= 3.0F)
 			{
 				stack.hurt(1, level.random, serverPlayer);
-				entityIn.fallDistance = 0.0F;
+				serverPlayer.fallDistance = 0.0F;
 				
 				if(!level.isClientSide && level instanceof ServerLevel server)
 				{
-					server.sendParticles(ParticleTypes.CLOUD, entityIn.xo, entityIn.yo, entityIn.zo, 3, 0, 0, 0, (level.random.nextFloat() - 0.5F));
+					server.sendParticles(ParticleTypes.CLOUD, serverPlayer.xo, serverPlayer.yo, serverPlayer.zo, 3, 0, 0, 0, (level.random.nextFloat() - 0.5F));
 				}
 			}
 		}
