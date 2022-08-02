@@ -29,16 +29,16 @@ public class GoldenFeatherCurio implements ICurio
     @Override
     public void curioTick(SlotContext context)
     {
-        if(context.entity() instanceof ServerPlayer)
+        if(context.entity() instanceof ServerPlayer serverPlayer)
         {
-            if(context.entity().fallDistance >= 3.0F)
+            if(serverPlayer.fallDistance >= 3.0F)
             {
-                stack.hurt(1, context.entity().level.random, (ServerPlayer)context.entity());
-                context.entity().fallDistance = 0.0F;
+                stack.hurt(1, serverPlayer.level.random, serverPlayer);
+                serverPlayer.fallDistance = 0.0F;
 
-                if(!context.entity().level.isClientSide && context.entity().level instanceof ServerLevel)
+                if(!serverPlayer.level.isClientSide && serverPlayer.level instanceof ServerLevel serverLevel)
                 {
-                    ((ServerLevel)context.entity().level).sendParticles(ParticleTypes.CLOUD, context.entity().xOld, context.entity().yOld, context.entity().zOld, 3, 0, 0, 0, (context.entity().level.random.nextFloat() - 0.5F));
+                    serverLevel.sendParticles(ParticleTypes.CLOUD, serverPlayer.xOld, serverPlayer.yOld, serverPlayer.zOld, 3, 0, 0, 0, (serverPlayer.level.random.nextFloat() - 0.5F));
                 }
             }
         }
