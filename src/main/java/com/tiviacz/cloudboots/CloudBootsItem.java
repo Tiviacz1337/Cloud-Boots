@@ -38,10 +38,8 @@ public class CloudBootsItem extends ArmorItem
     @Override
     public void inventoryTick(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected)
     {
-        if(entityIn instanceof PlayerEntity)
+        if(entityIn instanceof PlayerEntity player)
         {
-            PlayerEntity player = (PlayerEntity)entityIn;
-
             if(player.getEquippedStack(EquipmentSlot.FEET).getItem() == this)
             {
                 player.addStatusEffect(new StatusEffectInstance(StatusEffects.JUMP_BOOST, 0, 4, false, false));
@@ -52,9 +50,9 @@ public class CloudBootsItem extends ArmorItem
 
                     if(player.fallDistance >= 1.0F)
                     {
-                        if(!worldIn.isClient && worldIn instanceof ServerWorld)
+                        if(!worldIn.isClient && worldIn instanceof ServerWorld serverWorld)
                         {
-                            ((ServerWorld)worldIn).spawnParticles(ParticleTypes.CLOUD, player.lastRenderX, player.lastRenderY, player.lastRenderZ, 3, 0, 0, 0, (worldIn.random.nextFloat() - 0.5F));
+                            serverWorld.spawnParticles(ParticleTypes.CLOUD, player.lastRenderX, player.lastRenderY, player.lastRenderZ, 3, 0, 0, 0, (worldIn.random.nextFloat() - 0.5F));
                         }
 
                         player.fallDistance = 0F;
@@ -63,9 +61,9 @@ public class CloudBootsItem extends ArmorItem
 
                 if(player.isSprinting())
                 {
-                    if(!worldIn.isClient && worldIn instanceof ServerWorld)
+                    if(!worldIn.isClient && worldIn instanceof ServerWorld serverWorld)
                     {
-                        ((ServerWorld)worldIn).spawnParticles(ParticleTypes.CLOUD, player.lastRenderX, player.lastRenderY, player.lastRenderZ, 1, 0, 0, 0, (worldIn.random.nextFloat() - 0.5F));
+                        serverWorld.spawnParticles(ParticleTypes.CLOUD, player.lastRenderX, player.lastRenderY, player.lastRenderZ, 1, 0, 0, 0, (worldIn.random.nextFloat() - 0.5F));
                     }
                 }
             }
