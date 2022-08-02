@@ -29,16 +29,16 @@ public class GoldenFeatherItem extends Item
 	@Override
 	public void inventoryTick(ItemStack stack, Level level, Entity entityIn, int itemSlot, boolean isSelected)
 	{
-		if(isSelected && entityIn instanceof ServerPlayer)
+		if(isSelected && entityIn instanceof ServerPlayer serverPlayer)
 		{
-			if(entityIn.fallDistance >= 3.0F)
+			if(serverPlayer.fallDistance >= 3.0F)
 			{
-				stack.hurt(1, level.random, (ServerPlayer)entityIn);
-				entityIn.fallDistance = 0.0F;
+				stack.hurt(1, level.random, serverPlayer);
+				serverPlayer.fallDistance = 0.0F;
 				
-				if(!level.isClientSide && level instanceof ServerLevel)
+				if(!level.isClientSide && level instanceof ServerLevel serverLevel)
 				{
-					((ServerLevel)level).sendParticles(ParticleTypes.CLOUD, entityIn.xo, entityIn.yo, entityIn.zo, 3, 0, 0, 0, (level.random.nextFloat() - 0.5F));
+					serverLevel.sendParticles(ParticleTypes.CLOUD, serverPlayer.xo, serverPlayer.yo, serverPlayer.zo, 3, 0, 0, 0, (level.random.nextFloat() - 0.5F));
 				}
 				
 		/*		for(int i = 0; i < 3; i++)
