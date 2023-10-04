@@ -28,7 +28,7 @@ public class GoldenFeatherCurio implements ICurio
         {
             if(livingEntity.fallDistance >= 3.0F)
             {
-                stack.hurt(1, livingEntity.level.random, (ServerPlayerEntity)livingEntity);
+                stack.hurtAndBreak(1, (ServerPlayerEntity)livingEntity, e -> curioBreak(stack, livingEntity));
                 livingEntity.fallDistance = 0.0F;
 
                 if(!livingEntity.level.isClientSide && livingEntity.level instanceof ServerWorld)
