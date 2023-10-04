@@ -25,12 +25,12 @@ public class TrinketsCompat
             {
                 if(serverPlayer.fallDistance >= 3.0F)
                 {
-                    stack.damage(1, serverPlayer.world.random, serverPlayer);
+                    stack.damage(1, serverPlayer, e -> onBreak(stack, slot, entity));
                     serverPlayer.fallDistance = 0.0F;
 
                     if(!serverPlayer.world.isClient && serverPlayer.world instanceof ServerWorld serverWorld)
                     {
-                        serverWorld.spawnParticles(ParticleTypes.CLOUD, serverPlayer.prevX, serverPlayer.prevY, serverPlayer.prevZ, 3, 0, 0, 0, (serverWorld.random.nextFloat() - 0.5F));
+                        serverWorld.spawnParticles(ParticleTypes.CLOUD, serverPlayer.lastRenderX, serverPlayer.lastRenderY, serverPlayer.lastRenderZ, 3, 0, 0, 0, (serverWorld.random.nextFloat() - 0.5F));
                     }
                 }
             }
