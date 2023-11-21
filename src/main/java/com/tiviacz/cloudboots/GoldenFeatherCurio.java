@@ -33,7 +33,7 @@ public class GoldenFeatherCurio implements ICurio
         {
             if(serverPlayer.fallDistance >= 3.0F)
             {
-                stack.hurt(1, serverPlayer.level.random, serverPlayer);
+                stack.hurtAndBreak(1, serverPlayer, e -> curioBreak(context));
                 serverPlayer.fallDistance = 0.0F;
 
                 if(!serverPlayer.level.isClientSide && serverPlayer.level instanceof ServerLevel serverLevel)

@@ -1,0 +1,12 @@
+{
+  "required": true,
+  "package": "com.tiviacz.cloudboots.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "refmap": "cloudboots.refmap.json",
+  "mixins": [
+    "PlayerMixin"
+  ],
+  "client": [
+  ],
+  "minVersion": "0.8"
+}
