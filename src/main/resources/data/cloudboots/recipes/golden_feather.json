@@ -3,19 +3,19 @@
     
     "pattern":
     [
-        "BBB",
-        "BXB",
-        "BBB"
+        "AAA",
+        "ABA",
+        "AAA"
     ],
        
        "key":
         {
-            "B":
+            "A":
             {
-                "item": "minecraft:gold_ingot"
+                "tag": "forge:ingots/gold"
             },
             
-            "X":
+            "B":
             {
                 "item": "minecraft:feather"
             }          

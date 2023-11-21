@@ -4,6 +4,7 @@ import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.ItemStack;
+import top.theillusivec4.curios.api.CuriosApi;
 import top.theillusivec4.curios.api.SlotContext;
 import top.theillusivec4.curios.api.type.capability.ICurio;
 
@@ -33,7 +34,7 @@ public class GoldenFeatherCurio implements ICurio
         {
             if(serverPlayer.fallDistance >= 3.0F)
             {
-                stack.hurt(1, serverPlayer.level.random, serverPlayer);
+                stack.hurtAndBreak(1, serverPlayer, e -> curioBreak(context));
                 serverPlayer.fallDistance = 0.0F;
 
                 if(!serverPlayer.level.isClientSide && serverPlayer.level instanceof ServerLevel serverLevel)

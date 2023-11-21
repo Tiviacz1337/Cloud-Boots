@@ -4,21 +4,27 @@
     "pattern":
     [
 
+        "A A",
         "B B",
         "B B"
     ],
        
        "key":
         {
-            "B":
+            "A":
             {
                 "item": "cloudboots:golden_feather"
-            }                    
-       },
+            },
+
+            "B":
+            {
+              "tag": "forge:gems/diamond"
+            }
+        },
        
        "result":
        {
-            "item": "cloudboots:cloud_boots",
+            "item": "cloudboots:diamond_cloud_boots",
             "count": 1
-        }        
+        }
 }
