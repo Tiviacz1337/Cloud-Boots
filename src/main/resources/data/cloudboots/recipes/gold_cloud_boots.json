@@ -1,0 +1,30 @@
+{
+  "type": "minecraft:crafting_shaped",
+
+  "pattern":
+  [
+
+    "A A",
+    "B B",
+    "B B"
+  ],
+
+  "key":
+  {
+    "A":
+    {
+      "item": "cloudboots:golden_feather"
+    },
+
+    "B":
+    {
+      "tag": "forge:ingots/gold"
+    }
+  },
+
+  "result":
+  {
+    "item": "cloudboots:gold_cloud_boots",
+    "count": 1
+  }
+}
