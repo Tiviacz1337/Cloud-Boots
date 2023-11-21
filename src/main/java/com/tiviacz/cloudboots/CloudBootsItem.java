@@ -2,6 +2,7 @@ package com.tiviacz.cloudboots;
 
 import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.ai.attributes.Attribute;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
@@ -9,10 +10,7 @@ import net.minecraft.entity.ai.attributes.AttributeModifier.Operation;
 import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.EquipmentSlotType;
-import net.minecraft.item.ArmorItem;
-import net.minecraft.item.IArmorMaterial;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
+import net.minecraft.item.*;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraft.potion.EffectInstance;
@@ -20,28 +18,34 @@ import net.minecraft.potion.Effects;
 import net.minecraft.util.LazyValue;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.SoundEvents;
+import net.minecraft.util.text.IFormattableTextComponent;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
+
+import javax.annotation.Nullable;
+import java.util.List;
 
 public class CloudBootsItem extends ArmorItem
 {
 	private final Multimap<Attribute, AttributeModifier> attributeModifier;
+	private final int jumpBoostLevel;
 	
-	public CloudBootsItem(Properties builder) 
+	public CloudBootsItem(IArmorMaterial material, double speedModifier, int jumpBoostLevel)
 	{
-		super(CloudArmorMaterial.CLOUD, EquipmentSlotType.FEET, builder);
+		super(new DefaultArmorMaterial(material), EquipmentSlotType.FEET, new Item.Properties().tab(ItemGroup.TAB_COMBAT));
+
+		this.jumpBoostLevel = jumpBoostLevel;
 
 		Multimap<Attribute, AttributeModifier> attributeMap = getDefaultAttributeModifiers(EquipmentSlotType.FEET);
 		ImmutableMultimap.Builder<Attribute, AttributeModifier> modifierBuilder = ImmutableMultimap.builder();
 		modifierBuilder.putAll(attributeMap);
-		modifierBuilder.put(Attributes.MOVEMENT_SPEED, new AttributeModifier("CloudBootsMovementSpeedModifier", 0.15D, Operation.MULTIPLY_TOTAL));
+		modifierBuilder.put(Attributes.MOVEMENT_SPEED, new AttributeModifier("CloudBootsMovementSpeedModifier", speedModifier, Operation.MULTIPLY_TOTAL));
 		this.attributeModifier = modifierBuilder.build();
-	}
-
-	@Override
-	public IArmorMaterial getMaterial()
-	{
-		return CloudArmorMaterial.CLOUD;
 	}
 	
 	@Override
@@ -59,11 +63,11 @@ public class CloudBootsItem extends ArmorItem
 			
 			if(player.getItemBySlot(EquipmentSlotType.FEET).getItem() == this)
 			{
-				player.addEffect(new EffectInstance(Effects.JUMP, 0, 4, false, false));
+				player.addEffect(new EffectInstance(Effects.JUMP, 0, this.jumpBoostLevel, false, false));
 				
 				if(!player.isOnGround())
 				{
-					player.flyingSpeed += 0.012D;
+					player.flyingSpeed += 0.008F + (0.001F * this.jumpBoostLevel);;
 					
 					if(player.fallDistance >= 1.0F)
 					{
@@ -71,17 +75,7 @@ public class CloudBootsItem extends ArmorItem
 						{
 							((ServerWorld)worldIn).sendParticles(ParticleTypes.CLOUD, player.xOld, player.yOld, player.zOld, 3, 0, 0, 0, (random.nextFloat() - 0.5F));
 						}
-						
-					/*	else if(world.isRemote)
-						{
-							for(int i = 0; i < 3; i++)
-							{
-								world.spawnParticle(EnumParticleTypes.CLOUD, player.posX, player.posY, player.posZ, (itemRand.nextFloat() - 0.5F), -0.5D, (itemRand.nextFloat() - 0.5F));
-							}
-						} */
-
 						player.fallDistance = 0F;
-
 					}
 				}
 				
@@ -91,20 +85,86 @@ public class CloudBootsItem extends ArmorItem
 					{
 						((ServerWorld)worldIn).sendParticles(ParticleTypes.CLOUD, player.xOld, player.yOld, player.zOld, 1, 0, 0, 0, (random.nextFloat() - 0.5F));
 					}
-	
-				/*	else if(world.isRemote)
-					{
-						world.spawnParticle(EnumParticleTypes.CLOUD, player.posX, player.posY, player.posZ, (itemRand.nextFloat() - 0.5F), -0.5D, (itemRand.nextFloat() - 0.5F));
-					} */
 				}
 			}
 		}
 	}
-	
+
 	@Override
-	public boolean isValidRepairItem(ItemStack toRepair, ItemStack repair)
+	@OnlyIn(Dist.CLIENT)
+	public void appendHoverText(ItemStack stack, @Nullable World level, List<ITextComponent> tooltip, ITooltipFlag flag)
 	{
-		return super.isValidRepairItem(toRepair, repair);
+		super.appendHoverText(stack, level, tooltip, flag);
+		if(stack.getItem() == CloudBoots.ModItems.CLOUD_BOOTS.get())
+		{
+			tooltip.add(new TranslationTextComponent("item.cloudboots.og_boots").withStyle(TextFormatting.BLUE));
+		}
+		tooltip.add(new TranslationTextComponent("item.cloudboots.negates_fall_damage").withStyle(TextFormatting.BLUE));
+		IFormattableTextComponent formattableTextComponent = new TranslationTextComponent(Effects.JUMP.getDescriptionId());
+		formattableTextComponent = new TranslationTextComponent("potion.withAmplifier", formattableTextComponent, new TranslationTextComponent("potion.potency." + this.jumpBoostLevel)).withStyle(TextFormatting.BLUE);
+		tooltip.add(formattableTextComponent);
+	}
+
+	public static class DefaultArmorMaterial implements IArmorMaterial
+	{
+		private final IArmorMaterial defaultMaterial;
+
+		public DefaultArmorMaterial(IArmorMaterial defaultMaterial)
+		{
+			this.defaultMaterial = defaultMaterial;
+		}
+
+		@Override
+		public int getDurabilityForSlot(EquipmentSlotType pSlot)
+		{
+			return defaultMaterial.getDurabilityForSlot(pSlot);
+		}
+
+		@Override
+		public int getDefenseForSlot(EquipmentSlotType pSlot)
+		{
+			return defaultMaterial.getDefenseForSlot(pSlot);
+		}
+
+		@Override
+		public int getEnchantmentValue()
+		{
+			return defaultMaterial.getEnchantmentValue();
+		}
+
+		@Override
+		public SoundEvent getEquipSound()
+		{
+			return defaultMaterial.getEquipSound();
+		}
+
+		@Override
+		public Ingredient getRepairIngredient()
+		{
+			return defaultMaterial.getRepairIngredient();
+		}
+
+		@Override
+		public String getName()
+		{
+			if(defaultMaterial == CloudArmorMaterial.CLOUD)
+			{
+				return CloudArmorMaterial.CLOUD.getName();
+			}
+			return "cloudboots:" + defaultMaterial.getName() + "_cloud";
+		}
+
+		@Override
+		public float getToughness()
+		{
+			return defaultMaterial.getToughness();
+		}
+
+		@Override
+		public float getKnockbackResistance()
+		{
+			return defaultMaterial.getKnockbackResistance();
+		}
 	}
 
 	public static class CloudArmorMaterial implements IArmorMaterial

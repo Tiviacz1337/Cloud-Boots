@@ -1,14 +1,16 @@
 buildscript {
     repositories {
-        maven { url = 'https://files.minecraftforge.net/maven' }
-        jcenter()
+        maven { url = 'https://maven.minecraftforge.net' }
+        maven { url = 'https://maven.parchmentmc.org' }
         mavenCentral()
     }
     dependencies {
-        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '3.+', changing: true
+        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '5.1.+', changing: true
+        classpath 'org.parchmentmc:librarian:1.+'
     }
 }
 apply plugin: 'net.minecraftforge.gradle'
+apply plugin: 'org.parchmentmc.librarian.forgegradle'
 // Only edit below this line, the above code adds and enables the necessary things for Forge to be setup.
 apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
@@ -22,7 +24,7 @@ sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = co
 println('Java: ' + System.getProperty('java.version') + ' JVM: ' + System.getProperty('java.vm.version') + '(' + System.getProperty('java.vendor') + ') Arch: ' + System.getProperty('os.arch'))
 minecraft {
 
-    mappings channel: 'official', version: "${forge_mappings_version}"
+    mappings channel: 'parchment', version: parachment_mappings_version
 
     runs {
         client {
@@ -77,6 +79,9 @@ dependencies {
 
     minecraft 'net.minecraftforge:forge:' + "${minecraft_version}" + '-' + "${forge_version}"
 
+    runtimeOnly fg.deobf("mezz.jei:jei-${jei_mcversion}:${jei_version}")
+    compileOnly fg.deobf("mezz.jei:jei-${jei_mcversion}:${jei_version}:api")
+
     runtimeOnly fg.deobf("top.theillusivec4.curios:curios-forge:${curios_version}")
     compileOnly fg.deobf("top.theillusivec4.curios:curios-forge:${curios_version}:api")
 
@@ -86,6 +91,11 @@ repositories {
 
     maven {
         url = "https://maven.theillusivec4.top/"
+    }
+
+    maven {
+        name = "Progwml6 maven"
+        url = "https://dvs1.progwml6.com/files/maven/"
     }
 }
 

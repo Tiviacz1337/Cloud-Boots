@@ -35,11 +35,6 @@ public class GoldenFeatherCurio implements ICurio
                 {
                     ((ServerWorld)livingEntity.level).sendParticles(ParticleTypes.CLOUD, livingEntity.xOld, livingEntity.yOld, livingEntity.zOld, 3, 0, 0, 0, (livingEntity.level.random.nextFloat() - 0.5F));
                 }
-
-		/*		for(int i = 0; i < 3; i++)
-				{
-					worldIn.spawnParticle(EnumParticleTypes.CLOUD, entityIn.posX, entityIn.posY, entityIn.posZ, (itemRand.nextFloat() - 0.5F), -0.5D, (itemRand.nextFloat() - 0.5F));
-				}   */
             }
         }
     }
