@@ -36,9 +36,9 @@ public class GoldenFeatherCurio implements ICurio
                 stack.hurtAndBreak(1, serverPlayer, e -> curioBreak(context));
                 serverPlayer.fallDistance = 0.0F;
 
-                if(!serverPlayer.level.isClientSide && serverPlayer.level instanceof ServerLevel serverLevel)
+                if(!serverPlayer.level().isClientSide && serverPlayer.level() instanceof ServerLevel serverLevel)
                 {
-                    serverLevel.sendParticles(ParticleTypes.CLOUD, serverPlayer.xOld, serverPlayer.yOld, serverPlayer.zOld, 3, 0, 0, 0, (serverPlayer.level.random.nextFloat() - 0.5F));
+                    serverLevel.sendParticles(ParticleTypes.CLOUD, serverPlayer.xOld, serverPlayer.yOld, serverPlayer.zOld, 3, 0, 0, 0, (serverPlayer.level().random.nextFloat() - 0.5F));
                 }
             }
         }

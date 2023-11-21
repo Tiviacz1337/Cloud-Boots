@@ -3,7 +3,7 @@ package com.tiviacz.cloudboots;
 import net.minecraft.world.item.ArmorMaterials;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.Item;
-import net.minecraftforge.event.CreativeModeTabEvent;
+import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
 import net.minecraftforge.fml.InterModComms;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.common.Mod;
@@ -55,9 +55,9 @@ public class CloudBoots
         public static final RegistryObject<Item> GOLDEN_FEATHER = ITEMS.register("golden_feather", () -> new GoldenFeatherItem(new Item.Properties().stacksTo(1).defaultDurability(385)));
     }
 
-    public void addCreative(CreativeModeTabEvent.BuildContents event)
+    public void addCreative(BuildCreativeModeTabContentsEvent event)
     {
-        if(event.getTab() == CreativeModeTabs.COMBAT)
+        if(event.getTabKey() == CreativeModeTabs.COMBAT)
         {
             event.accept(ModItems.CLOUD_BOOTS);
             event.accept(ModItems.IRON_CLOUD_BOOTS);
@@ -66,7 +66,7 @@ public class CloudBoots
             event.accept(ModItems.NETHERITE_CLOUD_BOOTS);
         }
 
-        if(event.getTab() == CreativeModeTabs.TOOLS_AND_UTILITIES)
+        if(event.getTabKey() == CreativeModeTabs.TOOLS_AND_UTILITIES)
         {
             event.accept(ModItems.GOLDEN_FEATHER);
         }

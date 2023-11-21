@@ -63,7 +63,7 @@ public class CloudBootsItem extends ArmorItem
 			{
 				player.addEffect(new MobEffectInstance(MobEffects.JUMP, 0, this.jumpBoostLevel, false, false));
 				
-				if(!player.isOnGround())
+				if(!player.onGround())
 				{
 					if(player.fallDistance >= 1.0F)
 					{
