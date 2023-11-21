@@ -1,8 +1,11 @@
 package com.tiviacz.cloudboots;
 
+import net.minecraft.ChatFormatting;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
@@ -11,6 +14,7 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
@@ -20,6 +24,7 @@ import top.theillusivec4.curios.api.type.capability.ICurio;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.util.List;
 
 public class GoldenFeatherItem extends Item
 {
@@ -67,6 +72,13 @@ public class GoldenFeatherItem extends Item
 	public boolean isValidRepairItem(ItemStack toRepair, ItemStack repair)
     {
 		return repair.getItem() == Items.GOLD_INGOT;
+	}
+
+	@Override
+	public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> componentList, TooltipFlag flag)
+	{
+		super.appendHoverText(stack, level, componentList, flag);
+		componentList.add(new TranslatableComponent("item.cloudboots.negates_fall_damage").withStyle(ChatFormatting.BLUE));
 	}
 
 	@Nullable
