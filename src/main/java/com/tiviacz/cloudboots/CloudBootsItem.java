@@ -1,33 +1,47 @@
 package com.tiviacz.cloudboots;
 
+import com.google.common.collect.ImmutableMultimap;
+import com.google.common.collect.Multimap;
+import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EquipmentSlot;
+import net.minecraft.entity.attribute.EntityAttribute;
+import net.minecraft.entity.attribute.EntityAttributeModifier;
+import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ArmorItem;
-import net.minecraft.item.ArmorMaterial;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
+import net.minecraft.item.*;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.text.MutableText;
+import net.minecraft.text.Text;
+import net.minecraft.text.TranslatableText;
+import net.minecraft.util.Formatting;
 import net.minecraft.util.Lazy;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.Nullable;
+
+import java.util.List;
 
 public class CloudBootsItem extends ArmorItem
 {
-    public CloudBootsItem(Settings settings)
-    {
-        super(CloudArmorMaterial.CLOUD, EquipmentSlot.FEET, settings);
-    }
+    private final int jumpBoostLevel;
 
-    @Override
-    public boolean canRepair(ItemStack stack, ItemStack ingredient)
+    public CloudBootsItem(ArmorMaterial armorMaterial, double speedModifier, int jumpBoostLevel)
     {
-        return super.canRepair(stack, ingredient);
+        super(new DefaultArmorMaterial(armorMaterial), EquipmentSlot.FEET, new Item.Settings().group(ItemGroup.COMBAT));
+
+        this.jumpBoostLevel = jumpBoostLevel;
+
+        Multimap<EntityAttribute, EntityAttributeModifier> attributeMap = getAttributeModifiers(EquipmentSlot.FEET);
+        ImmutableMultimap.Builder<EntityAttribute, EntityAttributeModifier> modifierBuilder = ImmutableMultimap.builder();
+        modifierBuilder.putAll(attributeMap);
+        modifierBuilder.put(EntityAttributes.GENERIC_MOVEMENT_SPEED, new EntityAttributeModifier("CloudBootsMovementSpeedModifier", speedModifier, EntityAttributeModifier.Operation.MULTIPLY_TOTAL));
+        this.attributeModifiers = modifierBuilder.build();
     }
 
     @Override
@@ -39,11 +53,11 @@ public class CloudBootsItem extends ArmorItem
 
             if(player.getEquippedStack(EquipmentSlot.FEET).getItem() == this)
             {
-                player.addStatusEffect(new StatusEffectInstance(StatusEffects.JUMP_BOOST, 0, 4, false, false));
+                player.addStatusEffect(new StatusEffectInstance(StatusEffects.JUMP_BOOST, 0, this.jumpBoostLevel, false, false));
 
                 if(!player.isOnGround())
                 {
-                    player.flyingSpeed += 0.012D;
+                    player.flyingSpeed = (player.isSprinting() ? 0.026F : 0.02F) + (0.01F * this.jumpBoostLevel);
 
                     if(player.fallDistance >= 1.0F)
                     {
@@ -64,6 +78,84 @@ public class CloudBootsItem extends ArmorItem
                     }
                 }
             }
+        }
+    }
+
+    @Override
+    public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context)
+    {
+        super.appendTooltip(stack, world, tooltip, context);
+
+        if(stack.getItem() == CloudBoots.ModItems.CLOUD_BOOTS)
+        {
+            tooltip.add(new TranslatableText("item.cloudboots.og_boots").formatted(Formatting.BLUE));
+        }
+
+        tooltip.add(new TranslatableText("item.cloudboots.negates_fall_damage").formatted(Formatting.BLUE));
+        Text mutablecomponent = new TranslatableText(StatusEffects.JUMP_BOOST.getTranslationKey());
+        mutablecomponent = new TranslatableText("potion.withAmplifier", mutablecomponent, new TranslatableText("potion.potency." + this.jumpBoostLevel)).formatted(Formatting.BLUE);
+        tooltip.add(mutablecomponent);
+    }
+
+    public static class DefaultArmorMaterial implements ArmorMaterial
+    {
+        private final ArmorMaterial defaultMaterial;
+
+        public DefaultArmorMaterial(ArmorMaterial defaultMaterial)
+        {
+            this.defaultMaterial = defaultMaterial;
+        }
+
+        @Override
+        public int getDurability(EquipmentSlot slot)
+        {
+            return defaultMaterial.getDurability(slot);
+        }
+
+        @Override
+        public int getProtectionAmount(EquipmentSlot slot)
+        {
+            return defaultMaterial.getProtectionAmount(slot);
+        }
+
+        @Override
+        public int getEnchantability()
+        {
+            return defaultMaterial.getEnchantability();
+        }
+
+        @Override
+        public SoundEvent getEquipSound()
+        {
+            return defaultMaterial.getEquipSound();
+        }
+
+        @Override
+        public Ingredient getRepairIngredient()
+        {
+            return defaultMaterial.getRepairIngredient();
+        }
+
+        @Override
+        public String getName()
+        {
+            if(defaultMaterial == CloudArmorMaterial.CLOUD)
+            {
+                return CloudArmorMaterial.CLOUD.getName();
+            }
+            return defaultMaterial.getName() + "_cloud";
+        }
+
+        @Override
+        public float getToughness()
+        {
+            return defaultMaterial.getToughness();
+        }
+
+        @Override
+        public float getKnockbackResistance()
+        {
+            return defaultMaterial.getKnockbackResistance();
         }
     }
 

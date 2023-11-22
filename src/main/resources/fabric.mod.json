@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "id": "cloudboots",
   "version": "${version}",
-
+  "accessWidener" : "cloudboots.accesswidener",
   "name": "Cloud Boots",
   "description": "Cloud Boots for Fabric!",
   "authors": [
@@ -22,11 +22,6 @@
       "com.tiviacz.cloudboots.CloudBoots"
     ]
   },
-
-  "mixins": [
-    "cloudboots.mixins.json"
-  ],
-
   "depends": {
     "fabricloader": ">=0.11.3",
     "fabric": "*",
