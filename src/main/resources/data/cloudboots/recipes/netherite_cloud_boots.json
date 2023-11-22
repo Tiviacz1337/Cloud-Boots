@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:smithing",
+  "addition": {
+    "item": "minecraft:netherite_ingot"
+  },
+  "base": {
+    "item": "cloudboots:diamond_cloud_boots"
+  },
+  "result": {
+    "item": "cloudboots:netherite_cloud_boots"
+  }
+}

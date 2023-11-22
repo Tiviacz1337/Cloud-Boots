@@ -5,6 +5,7 @@
 
   "name": "Cloud Boots",
   "description": "Cloud Boots for Fabric!",
+  "accessWidener" : "cloudboots.accesswidener",
   "authors": [
     "Tiviacz1337"
   ],
@@ -22,10 +23,6 @@
       "com.tiviacz.cloudboots.CloudBoots"
     ]
   },
-
-  "mixins": [
-    "cloudboots.mixins.json"
-  ],
 
   "depends": {
     "fabricloader": ">=0.14.6",

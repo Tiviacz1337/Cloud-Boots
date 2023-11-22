@@ -1,0 +1,6 @@
+{
+    "parent": "item/generated",
+    "textures": {
+        "layer0": "cloudboots:item/gold_cloud_boots"
+    }
+}
