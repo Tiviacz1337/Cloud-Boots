@@ -1,0 +1,6 @@
+{
+    "parent": "item/generated",
+    "textures": {
+        "layer0": "cloudboots:item/netherite_cloud_boots"
+    }
+}

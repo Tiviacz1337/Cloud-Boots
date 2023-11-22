@@ -1,5 +1,5 @@
 plugins {
-	id 'fabric-loom' version '0.12-SNAPSHOT'
+	id 'fabric-loom' version '1.1-SNAPSHOT'
 	id 'maven-publish'
 }
 
@@ -17,19 +17,34 @@ repositories {
 	// See https://docs.gradle.org/current/userguide/declaring_repositories.html
 	// for more information about repositories.
 
-	repositories {
-		maven {
-			name = "TerraformersMC"
-			url = "https://maven.terraformersmc.com/"
-		}
-
-		maven {
-			name = "Ladysnake Libs"
-			url = "https://ladysnake.jfrog.io/artifactory/mods"
-		}
-		maven { url = "https://jitpack.io" }
-		maven { url "https://maven.shedaniel.me/" }
+	maven {
+		name = "TerraformersMC"
+		url = "https://maven.terraformersmc.com/"
 	}
+
+	maven {
+		name = "Ladysnake Libs"
+		url = "https://ladysnake.jfrog.io/artifactory/mods"
+	}
+
+	maven {
+		name = 'Ladysnake Mods'
+		url = 'https://maven.ladysnake.org/releases'
+	}
+
+	maven { url = "https://jitpack.io" }
+	maven { url "https://maven.shedaniel.me/" }
+
+	maven {
+		url "https://maven.jamieswhiteshirt.com/libs-release"
+		content {
+			includeGroup "com.jamieswhiteshirt"
+		}
+	}
+}
+
+loom {
+	accessWidenerPath = file("src/main/resources/cloudboots.accesswidener")
 }
 
 dependencies {
