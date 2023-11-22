@@ -27,9 +27,17 @@ repositories {
 			name = "Ladysnake Libs"
 			url = "https://ladysnake.jfrog.io/artifactory/mods"
 		}
+		maven {
+			name = 'Ladysnake Mods'
+			url = 'https://maven.ladysnake.org/releases'
+		}
 		maven { url = "https://jitpack.io" }
 		maven { url "https://maven.shedaniel.me/" }
 	}
+}
+
+loom {
+	accessWidenerPath = file("src/main/resources/cloudboots.accesswidener")
 }
 
 dependencies {

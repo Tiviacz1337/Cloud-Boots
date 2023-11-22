@@ -10,10 +10,7 @@ import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ArmorItem;
-import net.minecraft.item.ArmorMaterial;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
+import net.minecraft.item.*;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.server.world.ServerWorld;
@@ -24,15 +21,19 @@ import net.minecraft.world.World;
 
 public class CloudBootsItem extends ArmorItem
 {
-    public CloudBootsItem(Settings settings)
-    {
-        super(CloudArmorMaterial.CLOUD, EquipmentSlot.FEET, settings);
-    }
+    private final int jumpBoostLevel;
 
-    @Override
-    public boolean canRepair(ItemStack stack, ItemStack ingredient)
+    public CloudBootsItem(ArmorMaterial armorMaterial, double speedModifier, int jumpBoostLevel)
     {
-        return super.canRepair(stack, ingredient);
+        super(new DefaultArmorMaterial(armorMaterial), EquipmentSlot.FEET, new Item.Settings().group(ItemGroup.COMBAT));
+
+        this.jumpBoostLevel = jumpBoostLevel;
+
+        Multimap<EntityAttribute, EntityAttributeModifier> attributeMap = getAttributeModifiers(EquipmentSlot.FEET);
+        ImmutableMultimap.Builder<EntityAttribute, EntityAttributeModifier> modifierBuilder = ImmutableMultimap.builder();
+        modifierBuilder.putAll(attributeMap);
+        modifierBuilder.put(EntityAttributes.GENERIC_MOVEMENT_SPEED, new EntityAttributeModifier("CloudBootsMovementSpeedModifier", speedModifier, EntityAttributeModifier.Operation.MULTIPLY_TOTAL));
+        this.attributeModifiers = modifierBuilder.build();
     }
 
     @Override
@@ -42,11 +43,11 @@ public class CloudBootsItem extends ArmorItem
         {
             if(player.getEquippedStack(EquipmentSlot.FEET).getItem() == this)
             {
-                player.addStatusEffect(new StatusEffectInstance(StatusEffects.JUMP_BOOST, 0, 4, false, false));
+                player.addStatusEffect(new StatusEffectInstance(StatusEffects.JUMP_BOOST, 0, this.jumpBoostLevel, false, false));
 
                 if(!player.isOnGround())
                 {
-                    player.flyingSpeed += 0.012D;
+                    player.flyingSpeed = (player.isSprinting() ? 0.026F : 0.02F) + (0.01F * this.jumpBoostLevel);
 
                     if(player.fallDistance >= 1.0F)
                     {
@@ -67,6 +68,68 @@ public class CloudBootsItem extends ArmorItem
                     }
                 }
             }
+        }
+    }
+
+    public static class DefaultArmorMaterial implements ArmorMaterial
+    {
+        private final ArmorMaterial defaultMaterial;
+
+        public DefaultArmorMaterial(ArmorMaterial defaultMaterial)
+        {
+            this.defaultMaterial = defaultMaterial;
+        }
+
+        @Override
+        public int getDurability(EquipmentSlot slot)
+        {
+            return defaultMaterial.getDurability(slot);
+        }
+
+        @Override
+        public int getProtectionAmount(EquipmentSlot slot)
+        {
+            return defaultMaterial.getProtectionAmount(slot);
+        }
+
+        @Override
+        public int getEnchantability()
+        {
+            return defaultMaterial.getEnchantability();
+        }
+
+        @Override
+        public SoundEvent getEquipSound()
+        {
+            return defaultMaterial.getEquipSound();
+        }
+
+        @Override
+        public Ingredient getRepairIngredient()
+        {
+            return defaultMaterial.getRepairIngredient();
+        }
+
+        @Override
+        public String getName()
+        {
+            if(defaultMaterial == CloudArmorMaterial.CLOUD)
+            {
+                return CloudArmorMaterial.CLOUD.getName();
+            }
+            return defaultMaterial.getName() + "_cloud";
+        }
+
+        @Override
+        public float getToughness()
+        {
+            return defaultMaterial.getToughness();
+        }
+
+        @Override
+        public float getKnockbackResistance()
+        {
+            return defaultMaterial.getKnockbackResistance();
         }
     }
 
