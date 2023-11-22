@@ -28,7 +28,7 @@ public class TrinketsCompat
                     stack.damage(1, serverPlayer, e -> onBreak(stack, slot, entity));
                     serverPlayer.fallDistance = 0.0F;
 
-                    if(!serverPlayer.world.isClient && serverPlayer.world instanceof ServerWorld serverWorld)
+                    if(!serverPlayer.getWorld().isClient && serverPlayer.getWorld() instanceof ServerWorld serverWorld)
                     {
                         serverWorld.spawnParticles(ParticleTypes.CLOUD, serverPlayer.lastRenderX, serverPlayer.lastRenderY, serverPlayer.lastRenderZ, 3, 0, 0, 0, (serverWorld.random.nextFloat() - 0.5F));
                     }

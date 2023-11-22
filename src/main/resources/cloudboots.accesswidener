@@ -1,7 +1,3 @@
 accessWidener	v1	named
-
-accessible field net/minecraft/entity/player/PlayerEntity field_7509 F
-mutable field net/minecraft/entity/player/PlayerEntity field_7509 F
-
 accessible field net/minecraft/item/ArmorItem attributeModifiers Lcom/google/common/collect/Multimap;
 mutable field net/minecraft/item/ArmorItem attributeModifiers Lcom/google/common/collect/Multimap;
