@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_netherite": {
+      "conditions": {
+        "items": [
+          {
+            "items": "#c:ingots/netherite"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "cloudboots:netherite_cloud_boots"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_netherite"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "cloudboots:netherite_cloud_boots"
+    ]
+  }
+}

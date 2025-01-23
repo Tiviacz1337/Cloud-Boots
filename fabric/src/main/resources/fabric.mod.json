@@ -1,0 +1,34 @@
+{
+  "schemaVersion": 1,
+  "id": "cloudboots",
+  "version": "${version}",
+  "name": "Cloud Boots",
+  "description": "Make your journeys through the Minecraft world more enjoyable with the Cloud Boots!",
+  "authors": [
+    "Tiviacz1337"
+  ],
+  "contact": {
+    "homepage": "https://www.curseforge.com/minecraft/mc-mods/cloud-boots",
+    "sources": "https://github.com/Tiviacz1337/CloudBoots",
+    "issues": "https://github.com/Tiviacz1337/CloudBoots/issues"
+  },
+  "license": "All Rights Reserved",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "com.tiviacz.cloudboots.fabric.CloudBootsFabric"
+    ],
+    "client": [
+      "com.tiviacz.cloudboots.fabric.client.CloudBootsFabricClient"
+    ]
+  },
+  "mixins": [
+    "cloudboots.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.16.10",
+    "minecraft": "~1.21.1",
+    "java": ">=21",
+    "fabric-api": "*"
+  }
+}
