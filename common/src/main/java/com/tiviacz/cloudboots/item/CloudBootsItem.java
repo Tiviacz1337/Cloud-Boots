@@ -32,8 +32,8 @@ public class CloudBootsItem extends ArmorItem {
     private final Supplier<ItemAttributeModifiers> defaultModifiers;
     private final int jumpBoostLevel;
 
-    public CloudBootsItem(Holder<ArmorMaterial> material, double speedModifier, int jumpBoostLevel) {
-        super(material, Type.BOOTS, new Properties());
+    public CloudBootsItem(Holder<ArmorMaterial> material, double speedModifier, int jumpBoostLevel, Properties properties) {
+        super(material, Type.BOOTS, properties.stacksTo(1));
         this.jumpBoostLevel = jumpBoostLevel;
         this.defaultModifiers = Suppliers.memoize(
                 () -> {
