@@ -62,7 +62,7 @@ jobs:
           curseforge-name: ${{ env.RELEASE_NAME_CURSEFORGE }}
           version: "${{ env.VERSION }}"
           version-type: release
-          changelog-file: CHANGELOG.md
+          changelog-file: ${{ inputs.loader }}/CHANGELOG.md
 
           loaders: ${{ inputs.loader }}
           game-versions: "${{ env.MINECRAFT_VERSION }}"
