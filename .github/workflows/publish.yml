@@ -55,7 +55,7 @@ jobs:
 
           files: |
             ${{ inputs.loader }}/build/libs/!(*-@(dev|sources|javadoc)).jar
-            !${{ inputs.loader }}/build/libs/*-@(dev|sources|javadoc).jar
+            !${{ inputs.loader }}/build/libs/*-dev-shadow.jar
 
           curseforge-token: "${{ env.CURSEFORGE_TOKEN }}"
           modrinth-token: "${{ env.MODRINTH_TOKEN }}"
