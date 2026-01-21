@@ -53,6 +53,10 @@ jobs:
           curseforge-id: 291246
           modrinth-id: hkztOJro
 
+          files: |
+            ${{ inputs.loader }}/build/libs/!(*-@(dev|sources|javadoc)).jar
+            !${{ inputs.loader }}/build/libs/*-@(dev|sources|javadoc).jar
+
           curseforge-token: "${{ env.CURSEFORGE_TOKEN }}"
           modrinth-token: "${{ env.MODRINTH_TOKEN }}"
 
