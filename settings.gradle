@@ -7,7 +7,7 @@ pluginManagement {
     }
 }
 
-rootProject.name = 'cloudboots'
+rootProject.name = mod_id
 
 include 'common'
 include 'fabric'

@@ -1,25 +1,24 @@
 package com.tiviacz.cloudboots.fabric;
 
 import com.tiviacz.cloudboots.CloudBoots;
+import com.tiviacz.cloudboots.config.CloudBootsConfig;
 import com.tiviacz.cloudboots.fabric.compat.GoldenFeatherTrinket;
-import com.tiviacz.cloudboots.init.fabric.ModItemsImpl;
+import com.tiviacz.cloudboots.fabric.init.ModItems;
+import fuzs.forgeconfigapiport.fabric.api.neoforge.v4.NeoForgeConfigRegistry;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.world.item.CreativeModeTabs;
+import net.neoforged.fml.config.ModConfig;
 
 public final class CloudBootsFabric implements ModInitializer {
     public static boolean trinketsLoaded;
 
     @Override
     public void onInitialize() {
-        // This code runs as soon as Minecraft is in a mod-load-ready state.
-        // However, some things (like resources) may still be uninitialized.
-        // Proceed with mild caution.
-
-        // Run our common setup.
         CloudBoots.init();
-        ModItemsImpl.register();
+        NeoForgeConfigRegistry.INSTANCE.register(CloudBoots.MODID, ModConfig.Type.SERVER, CloudBootsConfig.serverSpec);
+        ModItems.register();
         addCreative();
 
         trinketsLoaded = FabricLoader.getInstance().isModLoaded("trinkets");
@@ -28,14 +27,14 @@ public final class CloudBootsFabric implements ModInitializer {
 
     public void addCreative() {
         ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.COMBAT).register(tab -> {
-            tab.accept(ModItemsImpl.CLOUD_BOOTS);
-            tab.accept(ModItemsImpl.IRON_CLOUD_BOOTS);
-            tab.accept(ModItemsImpl.GOLD_CLOUD_BOOTS);
-            tab.accept(ModItemsImpl.DIAMOND_CLOUD_BOOTS);
-            tab.accept(ModItemsImpl.NETHERITE_CLOUD_BOOTS);
+            tab.accept(ModItems.CLOUD_BOOTS);
+            tab.accept(ModItems.IRON_CLOUD_BOOTS);
+            tab.accept(ModItems.GOLD_CLOUD_BOOTS);
+            tab.accept(ModItems.DIAMOND_CLOUD_BOOTS);
+            tab.accept(ModItems.NETHERITE_CLOUD_BOOTS);
         });
         ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.TOOLS_AND_UTILITIES).register(tab -> {
-            tab.accept(ModItemsImpl.GOLDEN_FEATHER);
+            tab.accept(ModItems.GOLDEN_FEATHER);
         });
     }
 }

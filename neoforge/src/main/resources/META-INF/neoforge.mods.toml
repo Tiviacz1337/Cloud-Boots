@@ -1,27 +1,30 @@
-modLoader = "javafml"
-loaderVersion = "[2,)"
-issueTrackerURL="https://github.com/Tiviacz1337/CloudBoots/issues"
-license = "All Rights Reserved"
+modLoader = "javafml" #mandatory
+loaderVersion = "${loader_version_range}" #mandatory
+license = "${mod_license}"
+issueTrackerURL="${mod_issue_tracker}"
+logoFile="assets/${mod_id}/icon.png"
 
 [[mods]]
-modId = "cloudboots"
-version = "${version}"
-displayName="Cloud Boots"
-updateJSONURL="https://gist.githubusercontent.com/Tiviacz1337/3f4df725e9107ae6093e07c498515d01/raw"
-displayURL="https://www.curseforge.com/minecraft/mc-mods/cloud-boots-mod"
-authors="Tiviacz1337"
-description='Make your journeys through the Minecraft world more enjoyable with the Cloud Boots!'
+modId = "${mod_id}" #mandatory
+version = "${mod_version}" #mandatory
+displayName = "${mod_display_name}" #mandatory
+displayURL="${mod_url}"
+authors = "${mod_authors}"
+description = '''${mod_description}'''
 
-[[dependencies.cloudboots]]
+[[mixins]]
+config="${mod_id}.mixins.json"
+
+[[dependencies.${ mod_id }]]
 modId = "neoforge"
 type = "required"
-versionRange = "[21,)"
+versionRange = "${neoforge_version_range}" #mandatory
 ordering = "NONE"
 side = "BOTH"
 
-[[dependencies.cloudboots]]
+[[dependencies.${ mod_id }]]
 modId = "minecraft"
 type = "required"
-versionRange = "[1.21.1,)"
+versionRange = "${minecraft_version_range}"
 ordering = "NONE"
 side = "BOTH"

@@ -1,6 +1,7 @@
 package com.tiviacz.cloudboots.init;
 
 import com.tiviacz.cloudboots.CloudBoots;
+import com.tiviacz.cloudboots.platform.Platform;
 import net.minecraft.Util;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
@@ -25,7 +26,7 @@ public class ModArmorMaterials {
                 attribute.put(ArmorItem.Type.CHESTPLATE, 9);
                 attribute.put(ArmorItem.Type.HELMET, 5);
                 attribute.put(ArmorItem.Type.BODY, 11);
-            }), 10, SoundEvents.ARMOR_EQUIP_DIAMOND, 2f, 0.0f, () -> Ingredient.of(Items.GOLD_INGOT, ModItems.getItem(ModItems.GOLDEN_FEATHER).get()));
+            }), 10, SoundEvents.ARMOR_EQUIP_DIAMOND, 2f, 0.0f, () -> Ingredient.of(Items.GOLD_INGOT, Platform.getItem(ModItems.GOLDEN_FEATHER_ID).get()));
 
     public static final Holder<ArmorMaterial> IRON_CLOUD = register("iron_cloud",
             Util.make(new EnumMap<>(ArmorItem.Type.class), attribute -> {

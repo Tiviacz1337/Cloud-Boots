@@ -2,7 +2,10 @@ package com.tiviacz.cloudboots.item;
 
 import com.google.common.base.Suppliers;
 import com.tiviacz.cloudboots.CloudBoots;
+import com.tiviacz.cloudboots.config.CloudBootsConfig;
+import com.tiviacz.cloudboots.init.ModArmorMaterials;
 import com.tiviacz.cloudboots.init.ModItems;
+import com.tiviacz.cloudboots.platform.Platform;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.Holder;
 import net.minecraft.core.particles.ParticleTypes;
@@ -30,41 +33,66 @@ import java.util.function.Supplier;
 
 public class CloudBootsItem extends ArmorItem {
     private final Supplier<ItemAttributeModifiers> defaultModifiers;
-    private final int jumpBoostLevel;
+    private final Supplier<Integer> jumpBoostLevel;
+    private final Supplier<Double> speedModifier;
+    private final Supplier<Double> flyingSpeedModifier;
+    private final Supplier<Boolean> negatesFallDamage;
 
-    public CloudBootsItem(Holder<ArmorMaterial> material, double speedModifier, int jumpBoostLevel, Properties properties) {
-        super(material, Type.BOOTS, properties.stacksTo(1));
-        this.jumpBoostLevel = jumpBoostLevel;
-        this.defaultModifiers = Suppliers.memoize(
-                () -> {
-                    int i = material.value().getDefense(type);
-                    float f = material.value().toughness();
-                    ItemAttributeModifiers.Builder itemattributemodifiers$builder = ItemAttributeModifiers.builder();
-                    EquipmentSlotGroup equipmentslotgroup = EquipmentSlotGroup.bySlot(type.getSlot());
-                    ResourceLocation resourcelocation = ResourceLocation.withDefaultNamespace("armor." + type.getName());
-                    itemattributemodifiers$builder.add(
-                            Attributes.ARMOR, new AttributeModifier(resourcelocation, (double)i, AttributeModifier.Operation.ADD_VALUE), equipmentslotgroup
-                    );
-                    itemattributemodifiers$builder.add(
-                            Attributes.ARMOR_TOUGHNESS, new AttributeModifier(resourcelocation, (double)f, AttributeModifier.Operation.ADD_VALUE), equipmentslotgroup
-                    );
-                    float f1 = material.value().knockbackResistance();
-                    if(f1 > 0.0F) {
-                        itemattributemodifiers$builder.add(
-                                Attributes.KNOCKBACK_RESISTANCE,
-                                new AttributeModifier(resourcelocation, (double)f1, AttributeModifier.Operation.ADD_VALUE),
-                                equipmentslotgroup
-                        );
-                    }
-                    itemattributemodifiers$builder.add(Attributes.MOVEMENT_SPEED, new AttributeModifier(ResourceLocation.fromNamespaceAndPath(CloudBoots.MODID, "armor.speed"), speedModifier, AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL), equipmentslotgroup);
+    public CloudBootsItem(Holder<ArmorMaterial> material, Properties properties) {
+        super(material, Type.BOOTS, properties.stacksTo(1).durability(ArmorItem.Type.BOOTS.getDurability(getDurability(material))));
+        CloudBootsConfig.Server.TierConfig config = CloudBootsConfig.getProperConfig(material);
+        this.jumpBoostLevel = config.jumpBoostLevel;
+        this.speedModifier = config.speedModifier;
+        this.flyingSpeedModifier = config.flyingSpeedModifier;
+        this.negatesFallDamage = config.negatesFallDamage;
 
-                    return itemattributemodifiers$builder.build();
-                }
-        );
+        this.defaultModifiers = Suppliers.memoize(() -> {
+            int i = material.value().getDefense(type);
+            float f = material.value().toughness();
+            ItemAttributeModifiers.Builder itemattributemodifiers$builder = ItemAttributeModifiers.builder();
+            EquipmentSlotGroup equipmentslotgroup = EquipmentSlotGroup.bySlot(type.getSlot());
+            ResourceLocation resourcelocation = ResourceLocation.withDefaultNamespace("armor." + type.getName());
+            itemattributemodifiers$builder.add(Attributes.ARMOR, new AttributeModifier(resourcelocation, i, AttributeModifier.Operation.ADD_VALUE), equipmentslotgroup);
+            itemattributemodifiers$builder.add(Attributes.ARMOR_TOUGHNESS, new AttributeModifier(resourcelocation, f, AttributeModifier.Operation.ADD_VALUE), equipmentslotgroup);
+            float f1 = material.value().knockbackResistance();
+            if(f1 > 0.0F) {
+                itemattributemodifiers$builder.add(Attributes.KNOCKBACK_RESISTANCE, new AttributeModifier(resourcelocation, f1, AttributeModifier.Operation.ADD_VALUE), equipmentslotgroup);
+            }
+            itemattributemodifiers$builder.add(Attributes.MOVEMENT_SPEED, new AttributeModifier(ResourceLocation.fromNamespaceAndPath(CloudBoots.MODID, "armor.speed"), speedModifier.get(), AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL), equipmentslotgroup);
+            return itemattributemodifiers$builder.build();
+        });
+    }
+
+    public static int getDurability(Holder<ArmorMaterial> material) {
+        if(material.is(ModArmorMaterials.IRON_CLOUD)) {
+            return 15;
+        }
+        if(material.is(ModArmorMaterials.GOLD_CLOUD)) {
+            return 7;
+        }
+        if(material.is(ModArmorMaterials.DIAMOND_CLOUD)) {
+            return 33;
+        }
+        if(material.is(ModArmorMaterials.NETHERITE_CLOUD)) {
+            return 37;
+        }
+        return 33;
     }
 
     public int getJumpBoostLevel() {
-        return this.jumpBoostLevel;
+        return this.jumpBoostLevel.get();
+    }
+
+    public double getSpeedModifier() {
+        return this.speedModifier.get();
+    }
+
+    public double getFlyingSpeedModifier() {
+        return this.flyingSpeedModifier.get();
+    }
+
+    public boolean negatesFallDamage() {
+        return this.negatesFallDamage.get();
     }
 
     @Override
@@ -76,22 +104,26 @@ public class CloudBootsItem extends ArmorItem {
     public void inventoryTick(ItemStack stack, Level level, Entity entityIn, int itemSlot, boolean isSelected) {
         if(entityIn instanceof Player player) {
             if(player.getItemBySlot(EquipmentSlot.FEET).getItem() == this) {
-                player.addEffect(new MobEffectInstance(MobEffects.JUMP, 0, this.jumpBoostLevel, false, false));
-
+                player.addEffect(new MobEffectInstance(MobEffects.JUMP, 0, getJumpBoostLevel(), false, false));
                 if(!player.onGround()) {
                     if(player.fallDistance >= 1.0F) {
-                        if(!level.isClientSide && level instanceof ServerLevel server) {
-                            server.sendParticles(ParticleTypes.CLOUD, player.xo, player.yo, player.zo, 3, 0, 0, 0, (level.random.nextFloat() - 0.5F));
+                        spawnParticles(level, player);
+                        if(negatesFallDamage.get()) {
+                            player.fallDistance = 0F;
                         }
-                        player.fallDistance = 0F;
                     }
                 }
-
                 if(player.isSprinting()) {
-                    if(!level.isClientSide && level instanceof ServerLevel server) {
-                        server.sendParticles(ParticleTypes.CLOUD, player.xo, player.yo, player.zo, 1, 0, 0, 0, (level.random.nextFloat() - 0.5F));
-                    }
+                    spawnParticles(level, player);
                 }
+            }
+        }
+    }
+
+    public void spawnParticles(Level level, Player player) {
+        if(CloudBootsConfig.SERVER.spawnParticles.get()) {
+            if(!level.isClientSide && level instanceof ServerLevel server && level.random.nextFloat() > 0.5F) {
+                server.sendParticles(ParticleTypes.CLOUD, player.xo, player.yo, player.zo, 1, 0, 0, 0, (level.random.nextFloat() - 0.5F));
             }
         }
     }
@@ -100,13 +132,15 @@ public class CloudBootsItem extends ArmorItem {
     public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
         super.appendHoverText(stack, context, tooltipComponents, tooltipFlag);
 
-        if(stack.getItem() == ModItems.getItem(ModItems.CLOUD_BOOTS)) {
+        if(stack.getItem() == Platform.getItem(ModItems.CLOUD_BOOTS_ID)) {
             tooltipComponents.add(Component.translatable("item.cloudboots.og_boots").withStyle(ChatFormatting.BLUE));
         }
 
-        tooltipComponents.add(Component.translatable("item.cloudboots.negates_fall_damage").withStyle(ChatFormatting.BLUE));
+        if(negatesFallDamage()) {
+            tooltipComponents.add(Component.translatable("item.cloudboots.negates_fall_damage").withStyle(ChatFormatting.BLUE));
+        }
         MutableComponent mutablecomponent = Component.translatable(MobEffects.JUMP.value().getDescriptionId());
-        mutablecomponent = Component.translatable("potion.withAmplifier", mutablecomponent, Component.translatable("potion.potency." + this.jumpBoostLevel)).withStyle(ChatFormatting.BLUE);
+        mutablecomponent = Component.translatable("potion.withAmplifier", mutablecomponent, Component.translatable("potion.potency." + getJumpBoostLevel())).withStyle(ChatFormatting.BLUE);
         tooltipComponents.add(mutablecomponent);
     }
 }

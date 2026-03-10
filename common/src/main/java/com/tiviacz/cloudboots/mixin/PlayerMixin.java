@@ -35,9 +35,8 @@ public abstract class PlayerMixin extends LivingEntity {
 
         if(boots instanceof CloudBootsItem cloudBootsItem) {
             if(!(this.abilities.flying && !this.isPassenger())) {
-                cir.setReturnValue(this.isSprinting() ? 0.025999999F + (0.01F * cloudBootsItem.getJumpBoostLevel()) : 0.02F + (0.01F * cloudBootsItem.getJumpBoostLevel()));
+                cir.setReturnValue(this.isSprinting() ? 0.025999999F + (float)cloudBootsItem.getFlyingSpeedModifier() : 0.02F + (float)cloudBootsItem.getFlyingSpeedModifier());
             }
         }
     }
 }
-
