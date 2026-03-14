@@ -1,5 +1,6 @@
 package com.tiviacz.cloudboots.item;
 
+import com.tiviacz.cloudboots.CloudBoots;
 import com.tiviacz.cloudboots.config.CloudBootsConfig;
 import com.tiviacz.cloudboots.init.ModItems;
 import com.tiviacz.cloudboots.platform.Platform;
@@ -7,11 +8,15 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.ai.attributes.AttributeInstance;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -26,7 +31,7 @@ import java.util.function.Consumer;
 import java.util.function.Supplier;
 
 public class CloudBootsItem extends Item {
-    //private final Supplier<ItemAttributeModifiers> defaultModifiers;
+    public static final ResourceLocation SPEED_MODIFIER = ResourceLocation.fromNamespaceAndPath(CloudBoots.MODID, "armor.speed");
     private final Supplier<Integer> jumpBoostLevel;
     private final Supplier<Double> speedModifier;
     private final Supplier<Double> flyingSpeedModifier;
@@ -39,22 +44,6 @@ public class CloudBootsItem extends Item {
         this.speedModifier = config.speedModifier;
         this.flyingSpeedModifier = config.flyingSpeedModifier;
         this.negatesFallDamage = config.negatesFallDamage;
-
-        /*this.defaultModifiers = Suppliers.memoize(() -> {
-            int i = material.value().getDefense(type);
-            float f = material.value().toughness();
-            ItemAttributeModifiers.Builder itemattributemodifiers$builder = ItemAttributeModifiers.builder();
-            EquipmentSlotGroup equipmentslotgroup = EquipmentSlotGroup.bySlot(type.getSlot());
-            ResourceLocation resourcelocation = ResourceLocation.withDefaultNamespace("armor." + type.getName());
-            itemattributemodifiers$builder.add(Attributes.ARMOR, new AttributeModifier(resourcelocation, i, AttributeModifier.Operation.ADD_VALUE), equipmentslotgroup);
-            itemattributemodifiers$builder.add(Attributes.ARMOR_TOUGHNESS, new AttributeModifier(resourcelocation, f, AttributeModifier.Operation.ADD_VALUE), equipmentslotgroup);
-            float f1 = material.value().knockbackResistance();
-            if(f1 > 0.0F) {
-                itemattributemodifiers$builder.add(Attributes.KNOCKBACK_RESISTANCE, new AttributeModifier(resourcelocation, f1, AttributeModifier.Operation.ADD_VALUE), equipmentslotgroup);
-            }
-            itemattributemodifiers$builder.add(Attributes.MOVEMENT_SPEED, new AttributeModifier(ResourceLocation.fromNamespaceAndPath(CloudBoots.MODID, "armor.speed"), speedModifier.get(), AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL), equipmentslotgroup);
-            return itemattributemodifiers$builder.build();
-        });*/
     }
 
     public int getJumpBoostLevel() {
@@ -72,11 +61,6 @@ public class CloudBootsItem extends Item {
     public boolean negatesFallDamage() {
         return this.negatesFallDamage.get();
     }
-
-    /*@Override
-    public ItemAttributeModifiers getDefaultAttributeModifiers() {
-        return this.defaultModifiers.get();
-    }*/
 
     @Override
     public void inventoryTick(ItemStack stack, ServerLevel level, Entity entity, @Nullable EquipmentSlot slot) {
@@ -121,5 +105,29 @@ public class CloudBootsItem extends Item {
         MutableComponent mutablecomponent = Component.translatable(MobEffects.JUMP_BOOST.value().getDescriptionId());
         mutablecomponent = Component.translatable("potion.withAmplifier", mutablecomponent, Component.translatable("potion.potency." + getJumpBoostLevel())).withStyle(ChatFormatting.BLUE);
         tooltipAdder.accept(mutablecomponent);
+    }
+
+    //Custom tick method to apply speed attribute modifier read from config
+    public static void tick(Player player) {
+        if(player.level().isClientSide()) {
+            return;
+        }
+        AttributeInstance speedAttribute = player.getAttribute(Attributes.MOVEMENT_SPEED);
+        if(speedAttribute == null) return;
+
+        boolean wearingBoots = player.getItemBySlot(EquipmentSlot.FEET).getItem() instanceof CloudBootsItem;
+        boolean hasModifier = speedAttribute.hasModifier(SPEED_MODIFIER);
+
+        if(wearingBoots) {
+            if(!hasModifier) {
+                CloudBootsItem cloudBoots = (CloudBootsItem)player.getItemBySlot(EquipmentSlot.FEET).getItem();
+                AttributeModifier modifier = new AttributeModifier(SPEED_MODIFIER, cloudBoots.getSpeedModifier(), AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL);
+                speedAttribute.addTransientModifier(modifier);
+            }
+        } else {
+            if(hasModifier) {
+                speedAttribute.removeModifier(SPEED_MODIFIER);
+            }
+        }
     }
 }

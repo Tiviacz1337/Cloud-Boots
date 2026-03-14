@@ -1,0 +1,15 @@
+{
+  "required": true,
+  "package": "com.tiviacz.cloudboots.fabric.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "minVersion": "0.8",
+  "client": [
+  ],
+  "mixins": [
+    "ItemStackTooltipMixin",
+    "FabricPlayerMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

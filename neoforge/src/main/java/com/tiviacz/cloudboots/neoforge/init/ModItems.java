@@ -1,9 +1,9 @@
 package com.tiviacz.cloudboots.neoforge.init;
 
 import com.tiviacz.cloudboots.CloudBoots;
+import com.tiviacz.cloudboots.init.ModArmorMaterials;
 import com.tiviacz.cloudboots.item.CloudBootsItem;
 import com.tiviacz.cloudboots.item.GoldenFeatherItem;
-import com.tiviacz.cloudboots.init.ModArmorMaterials;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.equipment.ArmorType;
 import net.neoforged.neoforge.registries.DeferredItem;
