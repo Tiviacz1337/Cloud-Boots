@@ -23,7 +23,7 @@ public abstract class ItemStackTooltipMixin {
     @Shadow
     protected abstract void addModifierTooltip(Consumer<Component> tooltipAdder, @Nullable Player player, Holder<Attribute> attribute, AttributeModifier modifier);
 
-    @Inject(method = {"addAttributeTooltips", "method_57363"}, at = @At(value = "TAIL"), remap = false)
+    @Inject(method = "addAttributeTooltips", at = @At(value = "TAIL"))
     protected void addCloudBootsAttribute(Consumer<Component> tooltipAdder, TooltipDisplay tooltipDisplay, Player player, CallbackInfo ci) {
         if(((ItemStack)(Object)this).getItem() instanceof CloudBootsItem cloudBootsItem) {
             addModifierTooltip(tooltipAdder, player, Attributes.MOVEMENT_SPEED, new AttributeModifier(CloudBootsItem.SPEED_MODIFIER, cloudBootsItem.getSpeedModifier(), AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL));

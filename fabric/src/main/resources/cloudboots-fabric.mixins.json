@@ -6,8 +6,9 @@
   "client": [
   ],
   "mixins": [
+    "FabricPlayerMixin",
     "ItemStackTooltipMixin",
-    "FabricPlayerMixin"
+    "LivingEntityMixin"
   ],
   "injectors": {
     "defaultRequire": 1

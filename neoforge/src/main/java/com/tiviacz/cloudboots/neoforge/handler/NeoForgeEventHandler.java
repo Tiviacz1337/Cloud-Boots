@@ -15,6 +15,7 @@ import net.minecraft.world.item.component.ItemAttributeModifiers;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.AddAttributeTooltipsEvent;
+import net.neoforged.neoforge.event.entity.living.LivingIncomingDamageEvent;
 import net.neoforged.neoforge.event.tick.PlayerTickEvent;
 import org.jetbrains.annotations.Nullable;
 
@@ -23,6 +24,13 @@ public class NeoForgeEventHandler {
     @SubscribeEvent
     public static void playerTick(PlayerTickEvent.Post event) {
         CloudBootsItem.tick(event.getEntity());
+    }
+
+    @SubscribeEvent
+    public static void playerFallDamage(LivingIncomingDamageEvent event) {
+        if(CloudBootsItem.negateFallDamage(event.getEntity(), event.getSource())) {
+            event.setCanceled(true);
+        }
     }
 
     @SubscribeEvent

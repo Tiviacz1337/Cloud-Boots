@@ -30,13 +30,11 @@ public class GoldenFeatherItem extends Item {
             if(serverPlayer.getItemInHand(InteractionHand.MAIN_HAND).getItem() == stack.getItem()) {
                 if(serverPlayer.fallDistance >= 3.0F) {
                     serverPlayer.getItemInHand(InteractionHand.MAIN_HAND).hurtAndBreak(1, serverPlayer, EquipmentSlot.MAINHAND);
-                    serverPlayer.fallDistance = 0.0F;
                     spawnParticles(level, serverPlayer);
                 }
             } else if(serverPlayer.getItemInHand(InteractionHand.OFF_HAND).getItem() == stack.getItem()) {
                 if(serverPlayer.fallDistance >= 3.0F) {
                     serverPlayer.getItemInHand(InteractionHand.OFF_HAND).hurtAndBreak(1, serverPlayer, EquipmentSlot.OFFHAND);
-                    serverPlayer.fallDistance = 0.0F;
                     spawnParticles(level, serverPlayer);
                 }
             }

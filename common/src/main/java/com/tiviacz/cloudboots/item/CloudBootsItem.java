@@ -10,10 +10,13 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.tags.DamageTypeTags;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -70,9 +73,6 @@ public class CloudBootsItem extends Item {
                 if(!player.onGround()) {
                     if(player.fallDistance >= 1.0F) {
                         spawnParticles(level, player);
-                        if(negatesFallDamage.get()) {
-                            player.fallDistance = 0F;
-                        }
                     }
                 }
                 if(player.isSprinting()) {
@@ -129,5 +129,19 @@ public class CloudBootsItem extends Item {
                 speedAttribute.removeModifier(SPEED_MODIFIER);
             }
         }
+    }
+
+    public static boolean negateFallDamage(LivingEntity livingEntity, DamageSource damageSource) {
+        if(damageSource.is(DamageTypeTags.IS_FALL)) {
+            if(livingEntity.getItemBySlot(EquipmentSlot.FEET).getItem() instanceof CloudBootsItem cloudBootsItem) {
+                if(cloudBootsItem.negatesFallDamage()) {
+                    return true;
+                }
+            }
+            if(livingEntity.getItemBySlot(EquipmentSlot.MAINHAND).getItem() instanceof GoldenFeatherItem || livingEntity.getItemBySlot(EquipmentSlot.OFFHAND).getItem() instanceof GoldenFeatherItem || Platform.isGoldenFeatherEquipped(livingEntity)) {
+                return true;
+            }
+        }
+        return false;
     }
 }
