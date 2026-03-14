@@ -1,7 +1,7 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_netherite": {
+    "has_netherite_ingots": {
       "conditions": {
         "items": [
           {
@@ -21,7 +21,7 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_netherite"
+      "has_netherite_ingots"
     ]
   ],
   "rewards": {

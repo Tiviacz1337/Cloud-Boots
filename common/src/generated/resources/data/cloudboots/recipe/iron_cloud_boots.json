@@ -1,21 +1,21 @@
 {
   "type": "minecraft:crafting_shaped",
   "category": "equipment",
-  "pattern": [
-    "A A",
-    "B B",
-    "B B"
-  ],
   "key": {
     "A": {
       "item": "cloudboots:golden_feather"
     },
     "B": {
-      "tag": "c:ingots/gold"
+      "tag": "c:ingots/iron"
     }
   },
+  "pattern": [
+    "A A",
+    "B B",
+    "B B"
+  ],
   "result": {
-    "id": "cloudboots:gold_cloud_boots",
-    "count": 1
+    "count": 1,
+    "id": "cloudboots:iron_cloud_boots"
   }
 }

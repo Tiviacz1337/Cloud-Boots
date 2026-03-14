@@ -1,6 +1,5 @@
 {
   "type": "minecraft:smithing_transform",
-  "category": "equipment",
   "addition": {
     "tag": "c:ingots/netherite"
   },
@@ -8,8 +7,8 @@
     "item": "cloudboots:diamond_cloud_boots"
   },
   "result": {
-    "id": "cloudboots:netherite_cloud_boots",
-    "count": 1
+    "count": 1,
+    "id": "cloudboots:netherite_cloud_boots"
   },
   "template": {
     "item": "minecraft:netherite_upgrade_smithing_template"

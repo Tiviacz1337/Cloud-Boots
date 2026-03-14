@@ -21,6 +21,9 @@
     ],
     "client": [
       "com.tiviacz.cloudboots.fabric.CloudBootsFabricClient"
+    ],
+    "fabric-datagen": [
+      "com.tiviacz.cloudboots.fabric.datagen.ModDataGeneration"
     ]
   },
   "mixins": [

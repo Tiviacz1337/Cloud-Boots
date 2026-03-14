@@ -29,7 +29,7 @@ public abstract class PlayerMixin extends LivingEntity {
         super(entityType, level);
     }
 
-    @Inject(method = "getFlyingSpeed", at = @At(value = "RETURN"), cancellable = true)
+    @Inject(method = {"getFlyingSpeed", "method_49484"}, at = @At(value = "RETURN"), cancellable = true, remap = false)
     protected void getFlyingSpeed(CallbackInfoReturnable<Float> cir) {
         Item boots = this.getItemBySlot(EquipmentSlot.FEET).getItem();
 

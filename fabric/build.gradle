@@ -19,6 +19,13 @@ sourceSets {
     }
 }
 
+fabricApi {
+    configureDataGeneration() {
+        client = true
+        outputDirectory = commonGeneratedResources
+    }
+}
+
 configurations {
     common {
         canBeResolved = true
