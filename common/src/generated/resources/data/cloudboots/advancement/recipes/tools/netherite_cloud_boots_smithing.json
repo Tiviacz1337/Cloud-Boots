@@ -1,11 +1,11 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_iron": {
+    "has_netherite_ingots": {
       "conditions": {
         "items": [
           {
-            "items": "#c:ingots/iron"
+            "items": "#c:ingots/netherite"
           }
         ]
       },
@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "cloudboots:iron_cloud_boots"
+        "recipe": "minecraft:netherite_cloud_boots_smithing"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -21,12 +21,12 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_iron"
+      "has_netherite_ingots"
     ]
   ],
   "rewards": {
     "recipes": [
-      "cloudboots:iron_cloud_boots"
+      "minecraft:netherite_cloud_boots_smithing"
     ]
   }
 }

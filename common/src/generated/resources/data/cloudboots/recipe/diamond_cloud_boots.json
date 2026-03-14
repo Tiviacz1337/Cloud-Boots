@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "A": "cloudboots:golden_feather",
+    "B": "#c:gems/diamond"
+  },
+  "pattern": [
+    "A A",
+    "B B",
+    "B B"
+  ],
+  "result": {
+    "count": 1,
+    "id": "cloudboots:diamond_cloud_boots"
+  }
+}

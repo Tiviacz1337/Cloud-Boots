@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smithing_transform",
+  "addition": "#c:ingots/netherite",
+  "base": "cloudboots:diamond_cloud_boots",
+  "result": {
+    "id": "cloudboots:netherite_cloud_boots"
+  },
+  "template": "minecraft:netherite_upgrade_smithing_template"
+}

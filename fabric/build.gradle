@@ -19,6 +19,13 @@ sourceSets {
     }
 }
 
+fabricApi {
+    configureDataGeneration() {
+        client = true
+        outputDirectory = commonGeneratedResources
+    }
+}
+
 configurations {
     common {
         canBeResolved = true
@@ -51,8 +58,8 @@ dependencies {
 
     //Optional
     modImplementation("maven.modrinth:modmenu:$rootProject.modmenu_version")
-    modCompileOnly("maven.modrinth:trinkets:$rootProject.trinkets_version")
-    modCompileOnly("maven.modrinth:jei:$rootProject.jei_version_fabric")
+    modCompileOnly("maven.modrinth:trinkets-canary:$rootProject.trinkets_version")
+    //modCompileOnly("maven.modrinth:jei:$rootProject.jei_version_fabric")
 }
 
 processResources {

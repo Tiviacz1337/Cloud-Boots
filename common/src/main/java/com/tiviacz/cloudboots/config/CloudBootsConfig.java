@@ -1,25 +1,24 @@
 package com.tiviacz.cloudboots.config;
 
 import com.tiviacz.cloudboots.init.ModArmorMaterials;
-import net.minecraft.core.Holder;
-import net.minecraft.world.item.ArmorMaterial;
+import net.minecraft.world.item.equipment.ArmorMaterial;
 import net.neoforged.neoforge.common.ModConfigSpec;
 import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.Locale;
 
 public class CloudBootsConfig {
-    public static Server.TierConfig getProperConfig(Holder<ArmorMaterial> material) {
-        if(material.is(ModArmorMaterials.IRON_CLOUD)) {
+    public static Server.TierConfig getProperConfig(ArmorMaterial material) {
+        if(material == ModArmorMaterials.IRON) {
             return CloudBootsConfig.SERVER.iron;
         }
-        if(material.is(ModArmorMaterials.GOLD_CLOUD)) {
+        if(material == ModArmorMaterials.GOLD) {
             return CloudBootsConfig.SERVER.gold;
         }
-        if(material.is(ModArmorMaterials.DIAMOND_CLOUD)) {
+        if(material == ModArmorMaterials.DIAMOND) {
             return CloudBootsConfig.SERVER.diamond;
         }
-        if(material.is(ModArmorMaterials.NETHERITE_CLOUD)) {
+        if(material == ModArmorMaterials.NETHERITE) {
             return CloudBootsConfig.SERVER.netherite;
         }
         return CloudBootsConfig.SERVER.cloud;

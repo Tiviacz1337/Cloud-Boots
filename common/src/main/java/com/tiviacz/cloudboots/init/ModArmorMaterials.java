@@ -1,81 +1,36 @@
 package com.tiviacz.cloudboots.init;
 
+import com.google.common.collect.Maps;
 import com.tiviacz.cloudboots.CloudBoots;
-import com.tiviacz.cloudboots.platform.Platform;
-import net.minecraft.Util;
-import net.minecraft.core.Holder;
-import net.minecraft.core.Registry;
-import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.world.item.ArmorItem;
-import net.minecraft.world.item.ArmorMaterial;
-import net.minecraft.world.item.Items;
-import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.tags.ItemTags;
+import net.minecraft.world.item.equipment.ArmorMaterial;
+import net.minecraft.world.item.equipment.ArmorType;
+import net.minecraft.world.item.equipment.EquipmentAsset;
+import net.minecraft.world.item.equipment.EquipmentAssets;
 
-import java.util.EnumMap;
-import java.util.List;
-import java.util.function.Supplier;
+import java.util.Map;
 
 public class ModArmorMaterials {
-    public static final Holder<ArmorMaterial> CLOUD = register("cloud",
-            Util.make(new EnumMap<>(ArmorItem.Type.class), attribute -> {
-                attribute.put(ArmorItem.Type.BOOTS, 5);
-                attribute.put(ArmorItem.Type.LEGGINGS, 7);
-                attribute.put(ArmorItem.Type.CHESTPLATE, 9);
-                attribute.put(ArmorItem.Type.HELMET, 5);
-                attribute.put(ArmorItem.Type.BODY, 11);
-            }), 10, SoundEvents.ARMOR_EQUIP_DIAMOND, 2f, 0.0f, () -> Ingredient.of(Items.GOLD_INGOT, Platform.getItem(ModItems.GOLDEN_FEATHER_ID).get()));
+    public static ResourceKey<EquipmentAsset> CLOUD_ID = createId("cloud");
+    public static ResourceKey<EquipmentAsset> IRON_CLOUD_ID = createId("iron_cloud");
+    public static ResourceKey<EquipmentAsset> GOLD_CLOUD_ID = createId("gold_cloud");
+    public static ResourceKey<EquipmentAsset> DIAMOND_CLOUD_ID = createId("diamond_cloud");
+    public static ResourceKey<EquipmentAsset> NETHERITE_CLOUD_ID = createId("netherite_cloud");
 
-    public static final Holder<ArmorMaterial> IRON_CLOUD = register("iron_cloud",
-            Util.make(new EnumMap<>(ArmorItem.Type.class), attribute -> {
-                attribute.put(ArmorItem.Type.BOOTS, 2);
-                attribute.put(ArmorItem.Type.LEGGINGS, 5);
-                attribute.put(ArmorItem.Type.CHESTPLATE, 6);
-                attribute.put(ArmorItem.Type.HELMET, 2);
-                attribute.put(ArmorItem.Type.BODY, 5);
-            }), 9, SoundEvents.ARMOR_EQUIP_IRON, 0.0F, 0.0F, () -> Ingredient.of(Items.IRON_INGOT));
+    public static final ArmorMaterial CLOUD = new ArmorMaterial(33, makeDefense(3, 6, 8, 3, 11), 10, SoundEvents.ARMOR_EQUIP_DIAMOND, 2.0F, 0.0F, ModTags.REPAIRS_CLOUD_ARMOR, CLOUD_ID);
+    public static final ArmorMaterial IRON = new ArmorMaterial(15, makeDefense(2, 5, 6, 2, 5), 9, SoundEvents.ARMOR_EQUIP_IRON, 0.0F, 0.0F, ItemTags.REPAIRS_IRON_ARMOR, IRON_CLOUD_ID);
+    public static final ArmorMaterial GOLD = new ArmorMaterial(7, makeDefense(1, 3, 5, 2, 7), 25, SoundEvents.ARMOR_EQUIP_GOLD, 0.0F, 0.0F, ItemTags.REPAIRS_GOLD_ARMOR, GOLD_CLOUD_ID);
+    public static final ArmorMaterial DIAMOND = new ArmorMaterial(33, makeDefense(3, 6, 8, 3, 11), 10, SoundEvents.ARMOR_EQUIP_DIAMOND, 2.0F, 0.0F, ItemTags.REPAIRS_DIAMOND_ARMOR, DIAMOND_CLOUD_ID);
+    public static final ArmorMaterial NETHERITE = new ArmorMaterial(37, makeDefense(3, 6, 8, 3, 11), 15, SoundEvents.ARMOR_EQUIP_NETHERITE, 3.0F, 0.1F, ItemTags.REPAIRS_NETHERITE_ARMOR, NETHERITE_CLOUD_ID);
 
-    public static final Holder<ArmorMaterial> GOLD_CLOUD = register("gold_cloud",
-            Util.make(new EnumMap<>(ArmorItem.Type.class), attribute -> {
-                attribute.put(ArmorItem.Type.BOOTS, 1);
-                attribute.put(ArmorItem.Type.LEGGINGS, 3);
-                attribute.put(ArmorItem.Type.CHESTPLATE, 5);
-                attribute.put(ArmorItem.Type.HELMET, 2);
-                attribute.put(ArmorItem.Type.BODY, 7);
-            }), 25, SoundEvents.ARMOR_EQUIP_GOLD, 0.0F, 0.0F, () -> Ingredient.of(Items.GOLD_INGOT));
+    private static Map<ArmorType, Integer> makeDefense(int boots, int leggings, int chestplate, int helmet, int body) {
+        return Maps.newEnumMap(Map.of(ArmorType.BOOTS, boots, ArmorType.LEGGINGS, leggings, ArmorType.CHESTPLATE, chestplate, ArmorType.HELMET, helmet, ArmorType.BODY, body));
+    }
 
-    public static final Holder<ArmorMaterial> DIAMOND_CLOUD = register("diamond_cloud", Util.make(new EnumMap<>(ArmorItem.Type.class), p_323380_ -> {
-        p_323380_.put(ArmorItem.Type.BOOTS, 3);
-        p_323380_.put(ArmorItem.Type.LEGGINGS, 6);
-        p_323380_.put(ArmorItem.Type.CHESTPLATE, 8);
-        p_323380_.put(ArmorItem.Type.HELMET, 3);
-        p_323380_.put(ArmorItem.Type.BODY, 11);
-    }), 10, SoundEvents.ARMOR_EQUIP_DIAMOND, 2.0F, 0.0F, () -> Ingredient.of(Items.DIAMOND));
-
-    public static final Holder<ArmorMaterial> NETHERITE_CLOUD = register("netherite_cloud", Util.make(new EnumMap<>(ArmorItem.Type.class), p_323379_ -> {
-        p_323379_.put(ArmorItem.Type.BOOTS, 3);
-        p_323379_.put(ArmorItem.Type.LEGGINGS, 6);
-        p_323379_.put(ArmorItem.Type.CHESTPLATE, 8);
-        p_323379_.put(ArmorItem.Type.HELMET, 3);
-        p_323379_.put(ArmorItem.Type.BODY, 11);
-    }), 15, SoundEvents.ARMOR_EQUIP_NETHERITE, 3.0F, 0.1F, () -> Ingredient.of(Items.NETHERITE_INGOT));
-
-    private static Holder<ArmorMaterial> register(String name, EnumMap<ArmorItem.Type, Integer> typeProtection,
-                                                  int enchantability, Holder<SoundEvent> sound, float toughness, float knockbackResistance,
-                                                  Supplier<Ingredient> ingredientItem) {
-        ResourceLocation location = ResourceLocation.fromNamespaceAndPath(CloudBoots.MODID, name);
-        Holder<SoundEvent> equipSound = sound;
-        Supplier<Ingredient> ingredient = ingredientItem;
-        List<ArmorMaterial.Layer> layers = List.of(new ArmorMaterial.Layer(location));
-
-        EnumMap<ArmorItem.Type, Integer> typeMap = new EnumMap<>(ArmorItem.Type.class);
-        for(ArmorItem.Type type : ArmorItem.Type.values()) {
-            typeMap.put(type, typeProtection.get(type));
-        }
-
-        return Registry.registerForHolder(BuiltInRegistries.ARMOR_MATERIAL, location,
-                new ArmorMaterial(typeProtection, enchantability, equipSound, ingredient, layers, toughness, knockbackResistance));
+    public static ResourceKey<EquipmentAsset> createId(String name) {
+        return ResourceKey.create(EquipmentAssets.ROOT_ID, ResourceLocation.fromNamespaceAndPath(CloudBoots.MODID, name));
     }
 }

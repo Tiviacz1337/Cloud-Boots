@@ -1,11 +1,11 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_gold": {
+    "has_iron_ingots": {
       "conditions": {
         "items": [
           {
-            "items": "#c:ingots/gold"
+            "items": "#c:ingots/iron"
           }
         ]
       },
@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "cloudboots:golden_feather"
+        "recipe": "cloudboots:iron_cloud_boots"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -21,12 +21,12 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_gold"
+      "has_iron_ingots"
     ]
   ],
   "rewards": {
     "recipes": [
-      "cloudboots:golden_feather"
+      "cloudboots:iron_cloud_boots"
     ]
   }
 }

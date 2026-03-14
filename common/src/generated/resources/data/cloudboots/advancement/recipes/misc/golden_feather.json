@@ -1,11 +1,11 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_netherite": {
+    "has_feathers": {
       "conditions": {
         "items": [
           {
-            "items": "#c:ingots/netherite"
+            "items": "#c:feathers"
           }
         ]
       },
@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "cloudboots:netherite_cloud_boots"
+        "recipe": "cloudboots:golden_feather"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -21,12 +21,12 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_netherite"
+      "has_feathers"
     ]
   ],
   "rewards": {
     "recipes": [
-      "cloudboots:netherite_cloud_boots"
+      "cloudboots:golden_feather"
     ]
   }
 }

@@ -13,18 +13,20 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.component.TooltipDisplay;
 import net.minecraft.world.level.Level;
+import org.jetbrains.annotations.Nullable;
 
-import java.util.List;
+import java.util.function.Consumer;
 
 public class GoldenFeatherItem extends Item {
     public GoldenFeatherItem(Properties properties) {
-        super(properties.stacksTo(1).durability(385));
+        super(properties.stacksTo(1).durability(385).repairable(Items.GOLD_INGOT));
     }
 
     @Override
-    public void inventoryTick(ItemStack stack, Level level, Entity entityIn, int itemSlot, boolean isSelected) {
-        if(entityIn instanceof ServerPlayer serverPlayer) {
+    public void inventoryTick(ItemStack stack, ServerLevel level, Entity entity, @Nullable EquipmentSlot slot) {
+        if(entity instanceof ServerPlayer serverPlayer) {
             if(serverPlayer.getItemInHand(InteractionHand.MAIN_HAND).getItem() == stack.getItem()) {
                 if(serverPlayer.fallDistance >= 3.0F) {
                     serverPlayer.getItemInHand(InteractionHand.MAIN_HAND).hurtAndBreak(1, serverPlayer, EquipmentSlot.MAINHAND);
@@ -39,6 +41,7 @@ public class GoldenFeatherItem extends Item {
                 }
             }
         }
+        super.inventoryTick(stack, level, entity, slot);
     }
 
     public static void spawnParticles(Level level, ServerPlayer serverPlayer) {
@@ -50,13 +53,8 @@ public class GoldenFeatherItem extends Item {
     }
 
     @Override
-    public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
-        super.appendHoverText(stack, context, tooltipComponents, tooltipFlag);
-        tooltipComponents.add(Component.translatable("item.cloudboots.negates_fall_damage").withStyle(ChatFormatting.BLUE));
-    }
-
-    @Override
-    public boolean isValidRepairItem(ItemStack toRepair, ItemStack repair) {
-        return repair.getItem() == Items.GOLD_INGOT;
+    public void appendHoverText(ItemStack stack, Item.TooltipContext context, TooltipDisplay tooltipDisplay, Consumer<Component> tooltipAdder, TooltipFlag flag) {
+        super.appendHoverText(stack, context, tooltipDisplay, tooltipAdder, flag);
+        tooltipAdder.accept(Component.translatable("item.cloudboots.negates_fall_damage").withStyle(ChatFormatting.BLUE));
     }
 }
