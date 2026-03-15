@@ -1,10 +1,7 @@
 package com.tiviacz.cloudboots.item;
 
-import com.tiviacz.cloudboots.config.CloudBootsConfig;
 import net.minecraft.ChatFormatting;
-import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.Entity;
@@ -28,23 +25,11 @@ public class GoldenFeatherItem extends Item {
             if(serverPlayer.getItemInHand(InteractionHand.MAIN_HAND).getItem() == stack.getItem()) {
                 if(serverPlayer.fallDistance >= 3.0F) {
                     serverPlayer.getItemInHand(InteractionHand.MAIN_HAND).hurtAndBreak(1, serverPlayer, EquipmentSlot.MAINHAND);
-                    serverPlayer.fallDistance = 0.0F;
-                    spawnParticles(level, serverPlayer);
                 }
             } else if(serverPlayer.getItemInHand(InteractionHand.OFF_HAND).getItem() == stack.getItem()) {
                 if(serverPlayer.fallDistance >= 3.0F) {
                     serverPlayer.getItemInHand(InteractionHand.OFF_HAND).hurtAndBreak(1, serverPlayer, EquipmentSlot.OFFHAND);
-                    serverPlayer.fallDistance = 0.0F;
-                    spawnParticles(level, serverPlayer);
                 }
-            }
-        }
-    }
-
-    public static void spawnParticles(Level level, ServerPlayer serverPlayer) {
-        if(CloudBootsConfig.SERVER.spawnParticles.get()) {
-            if(!level.isClientSide && level instanceof ServerLevel server && level.random.nextFloat() > 0.5F) {
-                server.sendParticles(ParticleTypes.CLOUD, serverPlayer.xo, serverPlayer.yo, serverPlayer.zo, 1, 0, 0, 0, (level.random.nextFloat() - 0.5F));
             }
         }
     }

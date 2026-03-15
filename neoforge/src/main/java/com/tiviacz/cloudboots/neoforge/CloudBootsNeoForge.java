@@ -24,6 +24,7 @@ public final class CloudBootsNeoForge {
         CloudBoots.init();
 
         modContainer.registerConfig(ModConfig.Type.SERVER, CloudBootsConfig.serverSpec);
+        modContainer.registerConfig(ModConfig.Type.CLIENT, CloudBootsConfig.clientSpec);
         if(FMLEnvironment.dist == Dist.CLIENT)
             modContainer.registerExtensionPoint(IConfigScreenFactory.class, ConfigurationScreen::new);
 

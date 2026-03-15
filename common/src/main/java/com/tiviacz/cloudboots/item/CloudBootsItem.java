@@ -12,12 +12,15 @@ import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.level.ServerLevel;
+import net.minecraft.tags.DamageTypeTags;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.EquipmentSlotGroup;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
@@ -105,25 +108,6 @@ public class CloudBootsItem extends ArmorItem {
         if(entityIn instanceof Player player) {
             if(player.getItemBySlot(EquipmentSlot.FEET).getItem() == this) {
                 player.addEffect(new MobEffectInstance(MobEffects.JUMP, 0, getJumpBoostLevel(), false, false));
-                if(!player.onGround()) {
-                    if(player.fallDistance >= 1.0F) {
-                        spawnParticles(level, player);
-                        if(negatesFallDamage.get()) {
-                            player.fallDistance = 0F;
-                        }
-                    }
-                }
-                if(player.isSprinting()) {
-                    spawnParticles(level, player);
-                }
-            }
-        }
-    }
-
-    public void spawnParticles(Level level, Player player) {
-        if(CloudBootsConfig.SERVER.spawnParticles.get()) {
-            if(!level.isClientSide && level instanceof ServerLevel server && level.random.nextFloat() > 0.5F) {
-                server.sendParticles(ParticleTypes.CLOUD, player.xo, player.yo, player.zo, 1, 0, 0, 0, (level.random.nextFloat() - 0.5F));
             }
         }
     }
@@ -142,5 +126,73 @@ public class CloudBootsItem extends ArmorItem {
         MutableComponent mutablecomponent = Component.translatable(MobEffects.JUMP.value().getDescriptionId());
         mutablecomponent = Component.translatable("potion.withAmplifier", mutablecomponent, Component.translatable("potion.potency." + getJumpBoostLevel())).withStyle(ChatFormatting.BLUE);
         tooltipComponents.add(mutablecomponent);
+    }
+
+    //Custom tick method to spawn particles
+    public static void tick(Player player) {
+        CloudBootsItem cloudBoots = areCloudBootsEquipped(player);
+
+        boolean bootsEquipped = cloudBoots != null;
+        boolean featherEquipped = isGoldenFeatherEquipped(player);
+
+        if(bootsEquipped || featherEquipped) {
+            if(!player.onGround()) {
+                if(player.fallDistance >= (bootsEquipped ? 1.0F : 3.0F)) {
+                    spawnClientParticles(player, 1, 0.5F);
+                }
+            }
+            if(player.isSprinting() && bootsEquipped) {
+                spawnClientParticles(player, 1, 0.5F);
+            }
+        }
+    }
+
+    public static void spawnClientParticles(Player player, int count, float chance) {
+        if(!CloudBootsConfig.clientSpec.isLoaded()) return;
+        if(!CloudBootsConfig.CLIENT.spawnParticles.get()) return;
+
+        if(player.level().random.nextFloat() < chance) {
+            return;
+        }
+        for(int i = 0; i < count; ++i) {
+            RandomSource random = player.level().getRandom();
+            double maxSpeed = 0 + random.nextFloat() * (0.2 - 0.0);
+            double g = random.nextGaussian() * 0;
+            double h = random.nextGaussian() * 0;
+            double j = random.nextGaussian() * 0;
+            double k = random.nextGaussian() * maxSpeed;
+            double l = random.nextGaussian() * maxSpeed;
+            double m = random.nextGaussian() * maxSpeed;
+            player.level().addParticle(ParticleTypes.POOF, player.getX() + g, player.getY() + h, player.getZ() + j, k, l, m);
+        }
+    }
+
+    public static boolean isCloudGearEquipped(LivingEntity livingEntity) {
+        if(areCloudBootsEquipped(livingEntity) != null) {
+            return true;
+        }
+        return isGoldenFeatherEquipped(livingEntity);
+    }
+
+    public static boolean negateFallDamage(LivingEntity livingEntity, DamageSource damageSource) {
+        if(damageSource.is(DamageTypeTags.IS_FALL)) {
+            CloudBootsItem cloudBootsItem = areCloudBootsEquipped(livingEntity);
+            if(cloudBootsItem != null && cloudBootsItem.negatesFallDamage()) {
+                return true;
+            }
+            return isGoldenFeatherEquipped(livingEntity);
+        }
+        return false;
+    }
+
+    public static CloudBootsItem areCloudBootsEquipped(LivingEntity livingEntity) {
+        if(livingEntity.getItemBySlot(EquipmentSlot.FEET).getItem() instanceof CloudBootsItem cloudBootsItem) {
+            return cloudBootsItem;
+        }
+        return null;
+    }
+
+    public static boolean isGoldenFeatherEquipped(LivingEntity livingEntity) {
+        return livingEntity.getItemBySlot(EquipmentSlot.MAINHAND).getItem() instanceof GoldenFeatherItem || livingEntity.getItemBySlot(EquipmentSlot.OFFHAND).getItem() instanceof GoldenFeatherItem || Platform.isGoldenFeatherEquipped(livingEntity);
     }
 }
