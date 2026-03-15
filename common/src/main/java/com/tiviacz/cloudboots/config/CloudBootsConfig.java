@@ -31,7 +31,6 @@ public class CloudBootsConfig {
         public final TierConfig diamond;
         public final TierConfig netherite;
         public final TierConfig cloud;
-        public final ModConfigSpec.BooleanValue spawnParticles;
 
         private Server(ModConfigSpec.Builder builder) {
             builder.comment("Server config settings")
@@ -42,10 +41,6 @@ public class CloudBootsConfig {
             diamond = new TierConfig(builder, "Diamond", 3, 0.15D, 0.025D, true);
             netherite = new TierConfig(builder, "Netherite", 4, 0.20D, 0.03D, true);
             cloud = new TierConfig(builder, "Cloud", 4, 0.15D, 0.03D, true);
-
-            spawnParticles = builder
-                    .comment("Whether to spawn particles when jumping while wearing Cloud Boots")
-                    .define("spawnParticles", true);
 
             builder.pop();
         }
