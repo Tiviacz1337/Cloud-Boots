@@ -2,7 +2,7 @@ package com.tiviacz.cloudboots.platform.neoforge;
 
 import com.tiviacz.cloudboots.init.ModItems;
 import com.tiviacz.cloudboots.neoforge.CloudBootsNeoForge;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.Item;
 import top.theillusivec4.curios.api.CuriosCapability;
@@ -11,7 +11,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.function.Supplier;
 
 public class PlatformImpl {
-    public static Supplier<Item> getItem(ResourceLocation id) {
+    public static Supplier<Item> getItem(Identifier id) {
         if(id.equals(ModItems.CLOUD_BOOTS_ID)) {
             return com.tiviacz.cloudboots.neoforge.init.ModItems.CLOUD_BOOTS;
         }

@@ -8,7 +8,7 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.util.RandomSource;
@@ -34,7 +34,7 @@ import java.util.function.Consumer;
 import java.util.function.Supplier;
 
 public class CloudBootsItem extends Item {
-    public static final ResourceLocation SPEED_MODIFIER = ResourceLocation.fromNamespaceAndPath(CloudBoots.MODID, "armor.speed");
+    public static final Identifier SPEED_MODIFIER = Identifier.fromNamespaceAndPath(CloudBoots.MODID, "armor.speed");
     private final Supplier<Integer> jumpBoostLevel;
     private final Supplier<Double> speedModifier;
     private final Supplier<Double> flyingSpeedModifier;

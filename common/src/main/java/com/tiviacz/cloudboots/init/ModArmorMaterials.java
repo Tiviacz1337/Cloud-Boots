@@ -2,8 +2,8 @@ package com.tiviacz.cloudboots.init;
 
 import com.google.common.collect.Maps;
 import com.tiviacz.cloudboots.CloudBoots;
+import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.equipment.ArmorMaterial;
@@ -31,6 +31,6 @@ public class ModArmorMaterials {
     }
 
     public static ResourceKey<EquipmentAsset> createId(String name) {
-        return ResourceKey.create(EquipmentAssets.ROOT_ID, ResourceLocation.fromNamespaceAndPath(CloudBoots.MODID, name));
+        return ResourceKey.create(EquipmentAssets.ROOT_ID, Identifier.fromNamespaceAndPath(CloudBoots.MODID, name));
     }
 }
