@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "A": {
+      "item": "minecraft:feather"
+    },
+    "B": {
+      "item": "minecraft:gold_ingot"
+    }
+  },
+  "pattern": [
+    "AAA",
+    "ABA",
+    "AAA"
+  ],
+  "result": {
+    "item": "cloudboots:golden_feather"
+  },
+  "show_notification": true
+}

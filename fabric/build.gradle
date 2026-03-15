@@ -1,0 +1,107 @@
+plugins {
+    id 'com.gradleup.shadow'
+}
+
+architectury {
+    platformSetupLoomIde()
+    fabric()
+}
+
+def commonGeneratedResources = project(':common').file("src/generated/resources")
+def commonSharedResources = project(':common').file("src/main/resources")
+
+sourceSets {
+    main {
+        resources {
+            srcDir commonSharedResources
+            srcDir commonGeneratedResources
+        }
+    }
+}
+
+fabricApi {
+    configureDataGeneration() {
+        client = true
+        outputDirectory = commonGeneratedResources
+    }
+}
+
+configurations {
+    common {
+        canBeResolved = true
+        canBeConsumed = false
+    }
+    compileClasspath.extendsFrom common
+    runtimeClasspath.extendsFrom common
+    developmentFabric.extendsFrom common
+
+    shadowBundle {
+        canBeResolved = true
+        canBeConsumed = false
+    }
+}
+
+repositories {
+    maven {
+        name = 'Ladysnake Mods'
+        url = 'https://maven.ladysnake.org/releases'
+    }
+}
+
+dependencies {
+    modImplementation "net.fabricmc:fabric-loader:$rootProject.fabric_loader_version"
+    modImplementation "net.fabricmc.fabric-api:fabric-api:$rootProject.fabric_api_version"
+
+    common(project(path: ':common', configuration: 'namedElements')) { transitive = false }
+    shadowBundle project(path: ':common', configuration: 'transformProductionFabric')
+
+    modImplementation("maven.modrinth:forge-config-api-port:$rootProject.forge_config_api_port_version")
+    modImplementation("maven.modrinth:forge-config-screens:$rootProject.forge_config_screens_version_fabric")
+    api 'com.electronwill.night-config:core:3.8.1'
+    api 'com.electronwill.night-config:toml:3.8.1'
+
+    modImplementation("maven.modrinth:modmenu:$rootProject.modmenu_version")
+    modCompileOnly("maven.modrinth:trinkets:$rootProject.trinkets_version")
+    modCompileOnly("maven.modrinth:jei:$rootProject.jei_version_fabric")
+    modImplementation "dev.onyxstudios.cardinal-components-api:cardinal-components-base:5.2.3"
+    modImplementation "dev.onyxstudios.cardinal-components-api:cardinal-components-entity:5.2.3"
+}
+
+processResources {
+    var replaceProperties = [
+            minecraft_version      : minecraft_version,
+            minecraft_version_range: minecraft_version_range,
+            forge_version          : forge_version,
+            forge_loader_version   : forge_loader_version,
+            mod_issue_tracker      : mod_issue_tracker,
+            mod_source             : mod_source,
+            mod_url                : mod_url,
+            mod_id                 : mod_id,
+            mod_name               : mod_name,
+            mod_display_name       : mod_display_name,
+            mod_license            : mod_license,
+            mod_version            : mod_version,
+            mod_authors            : mod_authors,
+            mod_description        : mod_description,
+            fabric_loader_dep      : fabric_loader_dep,
+            fabric_api_dep         : fabric_api_dep,
+            minecraft_dep          : minecraft_dep,
+            java_dep               : java_dep,
+            forgeconfigapiport_dep : forgeconfigapiport_dep
+    ]
+    inputs.properties replaceProperties
+
+    filesMatching('fabric.mod.json') {
+        expand replaceProperties
+    }
+}
+
+shadowJar {
+    configurations = [project.configurations.shadowBundle]
+    archiveClassifier = 'dev-shadow'
+    destinationDirectory.set(layout.buildDirectory.dir("intermediate-libs"))
+}
+
+remapJar {
+    inputFile.set shadowJar.archiveFile
+}

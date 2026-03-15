@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_gold_ingots": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "minecraft:gold_ingot"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "cloudboots:gold_cloud_boots"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_gold_ingots",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "cloudboots:gold_cloud_boots"
+    ]
+  },
+  "sends_telemetry_event": false
+}
