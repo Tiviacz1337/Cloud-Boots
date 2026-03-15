@@ -30,7 +30,6 @@ public class CloudBootsConfig {
         public final TierConfig diamond;
         public final TierConfig netherite;
         public final TierConfig cloud;
-        public final ModConfigSpec.BooleanValue spawnParticles;
 
         private Server(ModConfigSpec.Builder builder) {
             builder.comment("Server config settings")
@@ -41,10 +40,6 @@ public class CloudBootsConfig {
             diamond = new TierConfig(builder, "Diamond", 3, 0.15D, 0.025D, true);
             netherite = new TierConfig(builder, "Netherite", 4, 0.20D, 0.03D, true);
             cloud = new TierConfig(builder, "Cloud", 4, 0.15D, 0.03D, true);
-
-            spawnParticles = builder
-                    .comment("Whether to spawn particles when jumping while wearing Cloud Boots")
-                    .define("spawnParticles", true);
 
             builder.pop();
         }
@@ -74,13 +69,33 @@ public class CloudBootsConfig {
         }
     }
 
+    public static class Client {
+        public final ModConfigSpec.BooleanValue spawnParticles;
+
+        Client(ModConfigSpec.Builder builder) {
+            builder.comment("Client-only settings")
+                    .push("client");
+
+            spawnParticles = builder
+                    .comment("Whether to spawn particles when jumping while wearing Cloud Boots")
+                    .define("spawnParticles", true);
+
+            builder.pop();
+        }
+    }
+
     //Specs
     public static final ModConfigSpec serverSpec;
     public static final Server SERVER;
+    public static final ModConfigSpec clientSpec;
+    public static final Client CLIENT;
 
     static {
         Pair<Server, ModConfigSpec> serverPair = new ModConfigSpec.Builder().configure(Server::new);
         serverSpec = serverPair.getRight();
         SERVER = serverPair.getLeft();
+        Pair<Client, ModConfigSpec> specPair = new ModConfigSpec.Builder().configure(Client::new);
+        clientSpec = specPair.getRight();
+        CLIENT = specPair.getLeft();
     }
 }

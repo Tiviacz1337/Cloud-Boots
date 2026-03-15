@@ -8,6 +8,7 @@
 	"item.cloudboots.diamond_cloud_boots": "Diamond Cloud Boots",
 	"item.cloudboots.netherite_cloud_boots": "Netherite Cloud Boots",
 	"cloudboots.configuration.server": "Server",
+	"cloudboots.configuration.client": "Client",
 	"cloudboots.configuration.jumpBoostLevel": "Jump Boost Level",
 	"cloudboots.configuration.speedModifier": "Movement Speed Modifier",
 	"cloudboots.configuration.flyingSpeedModifier": "Flying Speed Modifier",

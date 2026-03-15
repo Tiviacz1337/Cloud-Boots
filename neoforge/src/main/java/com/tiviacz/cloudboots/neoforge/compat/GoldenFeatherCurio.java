@@ -1,6 +1,5 @@
 package com.tiviacz.cloudboots.neoforge.compat;
 
-import com.tiviacz.cloudboots.item.GoldenFeatherItem;
 import com.tiviacz.cloudboots.neoforge.init.ModItems;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.ItemStack;
@@ -24,8 +23,6 @@ public record GoldenFeatherCurio(ItemStack stack) implements ICurio {
         if(context.entity() instanceof ServerPlayer serverPlayer) {
             if(serverPlayer.fallDistance >= 3.0F) {
                 stack.hurtAndBreak(1, serverPlayer.serverLevel(), serverPlayer, e -> curioBreak(context));
-                serverPlayer.fallDistance = 0.0F;
-                GoldenFeatherItem.spawnParticles(serverPlayer.level(), serverPlayer);
             }
         }
     }

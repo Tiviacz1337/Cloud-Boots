@@ -5,7 +5,6 @@ import com.tiviacz.cloudboots.neoforge.CloudBootsNeoForge;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.Item;
-import top.theillusivec4.curios.api.CuriosApi;
 import top.theillusivec4.curios.api.CuriosCapability;
 
 import java.util.concurrent.atomic.AtomicBoolean;
