@@ -51,8 +51,8 @@ jobs:
         if: inputs.loader == 'fabric'
         uses: Kir-Antipov/mc-publish@v3.3
         with:
-          curseforge-id: 631764
-          modrinth-id: 1BGsoydA
+          curseforge-id: 291246
+          modrinth-id: hkztOJro
 
           files: ${{ inputs.loader }}/build/libs/cloud-boots-${{ inputs.loader }}-${{ env.VERSION }}.jar
 
@@ -77,8 +77,8 @@ jobs:
         if: inputs.loader == 'forge'
         uses: Kir-Antipov/mc-publish@v3.3
         with:
-          curseforge-id: 631764
-          modrinth-id: 1BGsoydA
+          curseforge-id: 291246
+          modrinth-id: hkztOJro
 
           files: ${{ inputs.loader }}/build/libs/cloud-boots-${{ inputs.loader }}-${{ env.VERSION }}.jar
 
