@@ -51,10 +51,10 @@ jobs:
         if: inputs.loader == 'fabric'
         uses: Kir-Antipov/mc-publish@v3.3
         with:
-          curseforge-id: 631764
-          modrinth-id: 1BGsoydA
+          curseforge-id: 291246
+          modrinth-id: hkztOJro
 
-          files: ${{ inputs.loader }}/build/libs/cloudboots-${{ inputs.loader }}-${{ env.VERSION }}.jar
+          files: ${{ inputs.loader }}/build/libs/cloud-boots-${{ inputs.loader }}-${{ env.VERSION }}.jar
 
           curseforge-token: "${{ env.CURSEFORGE_TOKEN }}"
           modrinth-token: "${{ env.MODRINTH_TOKEN }}"
@@ -77,10 +77,10 @@ jobs:
         if: inputs.loader == 'neoforge'
         uses: Kir-Antipov/mc-publish@v3.3
         with:
-          curseforge-id: 631764
-          modrinth-id: 1BGsoydA
+          curseforge-id: 291246
+          modrinth-id: hkztOJro
 
-          files: ${{ inputs.loader }}/build/libs/cloudboots-${{ inputs.loader }}-${{ env.VERSION }}.jar
+          files: ${{ inputs.loader }}/build/libs/cloud-boots-${{ inputs.loader }}-${{ env.VERSION }}.jar
 
           curseforge-token: "${{ env.CURSEFORGE_TOKEN }}"
           modrinth-token: "${{ env.MODRINTH_TOKEN }}"
