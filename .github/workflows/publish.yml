@@ -54,7 +54,7 @@ jobs:
           curseforge-id: 631764
           modrinth-id: 1BGsoydA
 
-          files: ${{ inputs.loader }}/build/libs/cloudboots-${{ inputs.loader }}-${{ env.VERSION }}.jar
+          files: ${{ inputs.loader }}/build/libs/cloud-boots-${{ inputs.loader }}-${{ env.VERSION }}.jar
 
           curseforge-token: "${{ env.CURSEFORGE_TOKEN }}"
           modrinth-token: "${{ env.MODRINTH_TOKEN }}"
@@ -80,7 +80,7 @@ jobs:
           curseforge-id: 631764
           modrinth-id: 1BGsoydA
 
-          files: ${{ inputs.loader }}/build/libs/cloudboots-${{ inputs.loader }}-${{ env.VERSION }}.jar
+          files: ${{ inputs.loader }}/build/libs/cloud-boots-${{ inputs.loader }}-${{ env.VERSION }}.jar
 
           curseforge-token: "${{ env.CURSEFORGE_TOKEN }}"
           modrinth-token: "${{ env.MODRINTH_TOKEN }}"
