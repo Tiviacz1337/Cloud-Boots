@@ -17,7 +17,7 @@ public class GoldenFeatherTrinket implements Trinket {
     public void tick(ItemStack stack, SlotReference slot, LivingEntity entity) {
         if(entity instanceof ServerPlayer serverPlayer) {
             if(serverPlayer.fallDistance >= 3.0F) {
-                stack.hurtAndBreak(1, serverPlayer.serverLevel(), serverPlayer, e -> onBreak(stack, slot, entity));
+                stack.hurtAndBreak(1, serverPlayer.level(), serverPlayer, e -> onBreak(stack, slot, entity));
             }
         }
     }

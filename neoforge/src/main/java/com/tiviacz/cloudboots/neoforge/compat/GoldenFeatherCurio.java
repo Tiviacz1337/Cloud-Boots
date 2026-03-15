@@ -22,7 +22,7 @@ public record GoldenFeatherCurio(ItemStack stack) implements ICurio {
     public void curioTick(SlotContext context) {
         if(context.entity() instanceof ServerPlayer serverPlayer) {
             if(serverPlayer.fallDistance >= 3.0F) {
-                stack.hurtAndBreak(1, serverPlayer.serverLevel(), serverPlayer, e -> curioBreak(context));
+                stack.hurtAndBreak(1, serverPlayer.level(), serverPlayer, e -> curioBreak(context));
             }
         }
     }

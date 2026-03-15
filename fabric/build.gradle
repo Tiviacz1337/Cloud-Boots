@@ -62,8 +62,8 @@ dependencies {
     //Optional
     modImplementation("maven.modrinth:modmenu:$rootProject.modmenu_version")
     modImplementation("maven.modrinth:trinkets-canary:$rootProject.trinkets_version")
-    modImplementation "dev.onyxstudios.cardinal-components-api:cardinal-components-base:6.3.1"
-    modImplementation "dev.onyxstudios.cardinal-components-api:cardinal-components-entity:6.3.1"
+    modImplementation "dev.onyxstudios.cardinal-components-api:cardinal-components-base:7.0.0-beta.1"
+    modImplementation "dev.onyxstudios.cardinal-components-api:cardinal-components-entity:7.0.0-beta.1"
     //modCompileOnly("maven.modrinth:jei:$rootProject.jei_version_fabric")
 }
 
