@@ -1,9 +1,9 @@
-// 1.21.5	-999999999-01-01T00:00:00	Cloud Boots/Cloud Boots Recipes
+// 1.21.8	-999999999-01-01T00:00:00	Cloud Boots/Cloud Boots Recipes
 3e2345f8af07b855d69201bfd6bbcd7994a7a2ad data/cloudboots/advancement/recipes/misc/golden_feather.json
 3ad1fd2613e49867535740feee0cdd7cb63bd177 data/cloudboots/advancement/recipes/tools/diamond_cloud_boots.json
 fab0196146031839f211620974198b8dc1c2d0f8 data/cloudboots/advancement/recipes/tools/gold_cloud_boots.json
 4b17340359f68113f6d6b2575ed61f939e247992 data/cloudboots/advancement/recipes/tools/iron_cloud_boots.json
-248cd4472f76e13ad97d00913d0ef7dd2bc63cfe data/cloudboots/advancement/recipes/tools/netherite_cloud_boots_smithing.json
+b1abc6b33d749ecb03b7b22dad9f5051b9fb3610 data/cloudboots/advancement/recipes/tools/netherite_cloud_boots_smithing.json
 55690332026f398a5279b2d11f77751bded87acc data/cloudboots/recipe/diamond_cloud_boots.json
 0bc6e7bf37c4b41ae3a22d98c094fc2dc33fd3a2 data/cloudboots/recipe/gold_cloud_boots.json
 01f372ecbe6a19e62efc0f1de77efb026da39777 data/cloudboots/recipe/golden_feather.json
