@@ -1,4 +1,5 @@
-✨ Added config  
+✨ Added server config options: jump boost, movement speed and fall damage for each Cloud Boots tier  
+✨ Added a client config option to disable Cloud Boots particles  
 🐛 Cloud boots no longer break Mace  
 🐛 Fixed durability issue  
 
