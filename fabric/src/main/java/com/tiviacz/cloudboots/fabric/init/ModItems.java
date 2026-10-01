@@ -38,4 +38,8 @@ public class ModItems {
     public static ResourceKey<Item> resourceKey(String name) {
         return ResourceKey.create(Registries.ITEM, resourceLocation(name));
     }
+
+    public static ResourceKey<Item> getResourceKey(Item item) {
+        return BuiltInRegistries.ITEM.getResourceKey(item).get();
+    }
 }

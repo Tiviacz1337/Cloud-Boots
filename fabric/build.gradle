@@ -37,16 +37,16 @@ dependencies {
     common(project(path: ":common")) { transitive false }
     shadowCommon(project(path: ":common", configuration: "transformProductionFabric")) { transitive false }
 
-    implementation("maven.modrinth:forge-config-api-port:RXbL43Lt")
+    implementation("maven.modrinth:forge-config-api-port:rSd3GiG8")
     api 'com.electronwill.night-config:core:3.8.1'
     api 'com.electronwill.night-config:toml:3.8.1'
 
     //Optional
-    implementation("maven.modrinth:trinkets-updated:CFk62USu")
-    implementation("maven.modrinth:modmenu:jvjwXH6l")
+    implementation("maven.modrinth:trinkets-updated:r453A8nE")
+    implementation("maven.modrinth:modmenu:njXb639R")
 
     //JEI
-    implementation("maven.modrinth:jei:IfSmQWNL")
+    implementation("maven.modrinth:jei:9WFjN08I")
 }
 
 processResources {
