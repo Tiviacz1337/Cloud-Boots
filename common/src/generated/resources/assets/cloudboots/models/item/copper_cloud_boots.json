@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "cloudboots:item/copper_cloud_boots"
+  }
+}
