@@ -1,7 +1,11 @@
 package com.tiviacz.cloudboots.init;
 
 import com.tiviacz.cloudboots.CloudBoots;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.Item;
+
+import java.util.function.Supplier;
 
 public class ModItems {
     public static final ResourceLocation CLOUD_BOOTS_ID = ResourceLocation.fromNamespaceAndPath(CloudBoots.MODID, "cloud_boots");
@@ -10,4 +14,8 @@ public class ModItems {
     public static final ResourceLocation DIAMOND_CLOUD_BOOTS_ID = ResourceLocation.fromNamespaceAndPath(CloudBoots.MODID, "diamond_cloud_boots");
     public static final ResourceLocation NETHERITE_CLOUD_BOOTS_ID = ResourceLocation.fromNamespaceAndPath(CloudBoots.MODID, "netherite_cloud_boots");
     public static final ResourceLocation GOLDEN_FEATHER_ID = ResourceLocation.fromNamespaceAndPath(CloudBoots.MODID, "golden_feather");
+
+    public static Supplier<Item> getItem(ResourceLocation id) {
+        return () -> BuiltInRegistries.ITEM.getValue(id);
+    }
 }
