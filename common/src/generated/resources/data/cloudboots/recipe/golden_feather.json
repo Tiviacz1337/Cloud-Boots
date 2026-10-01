@@ -2,8 +2,8 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "A": "#c:feathers",
-    "B": "#c:ingots/gold"
+    "A": "#c:ingots/gold",
+    "B": "#c:feathers"
   },
   "pattern": [
     "AAA",
