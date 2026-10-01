@@ -16,6 +16,6 @@ public class ModItems {
     public static final DeferredItem<Item> IRON_CLOUD_BOOTS = ITEMS.registerItem("iron_cloud_boots", (properties) -> new CloudBootsItem(properties, ModArmorMaterials.IRON, ArmorType.BOOTS));
     public static final DeferredItem<Item> GOLD_CLOUD_BOOTS = ITEMS.registerItem("gold_cloud_boots", (properties) -> new CloudBootsItem(properties, ModArmorMaterials.GOLD, ArmorType.BOOTS));
     public static final DeferredItem<Item> DIAMOND_CLOUD_BOOTS = ITEMS.registerItem("diamond_cloud_boots", (properties) -> new CloudBootsItem(properties, ModArmorMaterials.DIAMOND, ArmorType.BOOTS));
-    public static final DeferredItem<Item> NETHERITE_CLOUD_BOOTS = ITEMS.registerItem("netherite_cloud_boots", (properties) -> new CloudBootsItem(properties, ModArmorMaterials.NETHERITE, ArmorType.BOOTS));
+    public static final DeferredItem<Item> NETHERITE_CLOUD_BOOTS = ITEMS.registerItem("netherite_cloud_boots", (properties) -> new CloudBootsItem(properties.fireResistant(), ModArmorMaterials.NETHERITE, ArmorType.BOOTS));
     public static final DeferredItem<Item> GOLDEN_FEATHER = ITEMS.registerItem("golden_feather", GoldenFeatherItem::new);
 }
