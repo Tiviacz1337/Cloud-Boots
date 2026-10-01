@@ -91,7 +91,7 @@ public class CloudBootsItem extends Item {
     public void appendHoverText(ItemStack stack, Item.TooltipContext context, TooltipDisplay tooltipDisplay, Consumer<Component> tooltipAdder, TooltipFlag flag) {
         super.appendHoverText(stack, context, tooltipDisplay, tooltipAdder, flag);
 
-        if(stack.getItem() == Platform.getItem(ModItems.CLOUD_BOOTS_ID)) {
+        if(stack.getItem() == ModItems.getItem(ModItems.CLOUD_BOOTS_ID)) {
             tooltipAdder.accept(Component.translatable("item.cloudboots.og_boots").withStyle(ChatFormatting.BLUE));
         }
 
