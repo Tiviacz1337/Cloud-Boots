@@ -30,10 +30,6 @@ subprojects {
         archivesName = "$rootProject.archives_name-$project.name-$rootProject.minecraft_version"
     }
 
-    repositories {
-
-    }
-
     dependencies {
         minecraft "net.minecraft:minecraft:$rootProject.minecraft_version"
         // Use mojmap with ParchmentMC
@@ -51,18 +47,5 @@ subprojects {
 
     tasks.withType(JavaCompile).configureEach {
         it.options.release = 21
-    }
-
-    publishing {
-        publications {
-            mavenJava(MavenPublication) {
-                artifactId = base.archivesName.get()
-                from components.java
-            }
-        }
-
-        repositories {
-
-        }
     }
 }
