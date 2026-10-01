@@ -23,7 +23,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
             @Override
             public void buildRecipes() {
                 ShapedRecipeBuilder.shaped(registries.lookupOrThrow(Registries.ITEM), RecipeCategory.MISC, ModItems.GOLDEN_FEATHER, 1)
-                        .define('A', ConventionalItemTags.FEATHERS).define('B', ConventionalItemTags.GOLD_INGOTS)
+                        .define('A', ConventionalItemTags.GOLD_INGOTS).define('B', ConventionalItemTags.FEATHERS)
                         .pattern("AAA").pattern("ABA").pattern("AAA")
                         .unlockedBy("has_feathers", has(ConventionalItemTags.FEATHERS)).save(recipeOutput);
                 ShapedRecipeBuilder.shaped(registries.lookupOrThrow(Registries.ITEM), RecipeCategory.TOOLS, ModItems.IRON_CLOUD_BOOTS, 1)
