@@ -2,11 +2,11 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "A": {
+    "B": {
       "item": "minecraft:feather"
     },
-    "B": {
-      "item": "minecraft:gold_ingot"
+    "A": {
+      "tag": "c:gold_ingots"
     }
   },
   "pattern": [
@@ -16,6 +16,5 @@
   ],
   "result": {
     "item": "cloudboots:golden_feather"
-  },
-  "show_notification": true
+  }
 }
