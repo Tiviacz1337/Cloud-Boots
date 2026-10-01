@@ -1,7 +1,5 @@
-✨ Added server config options: jump boost, movement speed and fall damage for each Cloud Boots tier  
-✨ Added a client config option to disable Cloud Boots particles  
-🐛 Cloud boots no longer break Mace  
-🐛 Fixed durability issue  
+✨ Netherite Cloud Boots are fire resistant  
+🐛 Fixed wrong Golden Feather recipe  
 
 ⭐ Want to receive **Supporter Star Badge** for a **lifetime**? - [visit my Ko-Fi page](https://ko-fi.com/tiviacz1337)!  
 ![Banner](https://i.imgur.com/SSrFv58.png)
