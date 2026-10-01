@@ -33,6 +33,7 @@ import net.minecraft.world.level.Level;
 
 import java.util.List;
 import java.util.function.Supplier;
+import java.util.function.UnaryOperator;
 
 public class CloudBootsItem extends ArmorItem {
     private final Supplier<ItemAttributeModifiers> defaultModifiers;
@@ -41,8 +42,12 @@ public class CloudBootsItem extends ArmorItem {
     private final Supplier<Double> flyingSpeedModifier;
     private final Supplier<Boolean> negatesFallDamage;
 
-    public CloudBootsItem(Holder<ArmorMaterial> material, Properties properties) {
-        super(material, Type.BOOTS, properties.stacksTo(1).durability(ArmorItem.Type.BOOTS.getDurability(getDurability(material))));
+    public CloudBootsItem(Holder<ArmorMaterial> material) {
+        this(material, properties -> properties);
+    }
+
+    public CloudBootsItem(Holder<ArmorMaterial> material, UnaryOperator<Properties> properties) {
+        super(material, Type.BOOTS, properties.apply(new Properties()).stacksTo(1).durability(ArmorItem.Type.BOOTS.getDurability(getDurability(material))));
         CloudBootsConfig.Server.TierConfig config = CloudBootsConfig.getProperConfig(material);
         this.jumpBoostLevel = config.jumpBoostLevel;
         this.speedModifier = config.speedModifier;

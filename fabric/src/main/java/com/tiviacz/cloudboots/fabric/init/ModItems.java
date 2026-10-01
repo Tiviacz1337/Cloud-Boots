@@ -18,11 +18,11 @@ public class ModItems {
     public static Item GOLDEN_FEATHER;
 
     public static void register() {
-        CLOUD_BOOTS = Registry.register(BuiltInRegistries.ITEM, ResourceLocation.fromNamespaceAndPath(CloudBoots.MODID, "cloud_boots"), new CloudBootsItem(ModArmorMaterials.CLOUD, new Item.Properties()));
-        IRON_CLOUD_BOOTS = Registry.register(BuiltInRegistries.ITEM, ResourceLocation.fromNamespaceAndPath(CloudBoots.MODID, "iron_cloud_boots"), new CloudBootsItem(ModArmorMaterials.IRON_CLOUD, new Item.Properties()));
-        GOLD_CLOUD_BOOTS = Registry.register(BuiltInRegistries.ITEM, ResourceLocation.fromNamespaceAndPath(CloudBoots.MODID, "gold_cloud_boots"), new CloudBootsItem(ModArmorMaterials.GOLD_CLOUD, new Item.Properties()));
-        DIAMOND_CLOUD_BOOTS = Registry.register(BuiltInRegistries.ITEM, ResourceLocation.fromNamespaceAndPath(CloudBoots.MODID, "diamond_cloud_boots"), new CloudBootsItem(ModArmorMaterials.DIAMOND_CLOUD, new Item.Properties()));
-        NETHERITE_CLOUD_BOOTS = Registry.register(BuiltInRegistries.ITEM, ResourceLocation.fromNamespaceAndPath(CloudBoots.MODID, "netherite_cloud_boots"), new CloudBootsItem(ModArmorMaterials.NETHERITE_CLOUD, new Item.Properties()));
+        CLOUD_BOOTS = Registry.register(BuiltInRegistries.ITEM, ResourceLocation.fromNamespaceAndPath(CloudBoots.MODID, "cloud_boots"), new CloudBootsItem(ModArmorMaterials.CLOUD));
+        IRON_CLOUD_BOOTS = Registry.register(BuiltInRegistries.ITEM, ResourceLocation.fromNamespaceAndPath(CloudBoots.MODID, "iron_cloud_boots"), new CloudBootsItem(ModArmorMaterials.IRON_CLOUD));
+        GOLD_CLOUD_BOOTS = Registry.register(BuiltInRegistries.ITEM, ResourceLocation.fromNamespaceAndPath(CloudBoots.MODID, "gold_cloud_boots"), new CloudBootsItem(ModArmorMaterials.GOLD_CLOUD));
+        DIAMOND_CLOUD_BOOTS = Registry.register(BuiltInRegistries.ITEM, ResourceLocation.fromNamespaceAndPath(CloudBoots.MODID, "diamond_cloud_boots"), new CloudBootsItem(ModArmorMaterials.DIAMOND_CLOUD));
+        NETHERITE_CLOUD_BOOTS = Registry.register(BuiltInRegistries.ITEM, ResourceLocation.fromNamespaceAndPath(CloudBoots.MODID, "netherite_cloud_boots"), new CloudBootsItem(ModArmorMaterials.NETHERITE_CLOUD, Item.Properties::fireResistant));
         GOLDEN_FEATHER = Registry.register(BuiltInRegistries.ITEM, ResourceLocation.fromNamespaceAndPath(CloudBoots.MODID, "golden_feather"), new GoldenFeatherItem(new Item.Properties().stacksTo(1).durability(385)));
     }
 }
