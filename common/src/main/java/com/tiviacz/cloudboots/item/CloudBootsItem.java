@@ -24,10 +24,7 @@ import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ArmorItem;
-import net.minecraft.world.item.ArmorMaterials;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
 
@@ -35,6 +32,7 @@ import java.util.EnumMap;
 import java.util.List;
 import java.util.UUID;
 import java.util.function.Supplier;
+import java.util.function.UnaryOperator;
 
 public class CloudBootsItem extends ArmorItem {
     private static final EnumMap<Type, UUID> ARMOR_MODIFIER_UUID_PER_TYPE = (EnumMap)Util.make(new EnumMap(Type.class), (enumMap) -> {
@@ -49,8 +47,12 @@ public class CloudBootsItem extends ArmorItem {
     private final Supplier<Double> flyingSpeedModifier;
     private final Supplier<Boolean> negatesFallDamage;
 
-    public CloudBootsItem(DefaultArmorMaterial armorMaterial, Properties properties) {
-        super(armorMaterial, Type.BOOTS, properties.stacksTo(1));
+    public CloudBootsItem(DefaultArmorMaterial armorMaterial) {
+        this(armorMaterial, (properties) -> properties);
+    }
+
+    public CloudBootsItem(DefaultArmorMaterial armorMaterial, UnaryOperator<Properties> properties) {
+        super(armorMaterial, Type.BOOTS, properties.apply(new Item.Properties()).stacksTo(1));
         CloudBootsConfig.Server.TierConfig config = CloudBootsConfig.getProperConfig(armorMaterial);
         this.jumpBoostLevel = config.jumpBoostLevel;
         this.speedModifier = config.speedModifier;

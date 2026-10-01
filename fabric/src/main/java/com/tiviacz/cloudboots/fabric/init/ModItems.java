@@ -19,11 +19,11 @@ public class ModItems {
     public static Item GOLDEN_FEATHER;
 
     public static void register() {
-        CLOUD_BOOTS = Registry.register(BuiltInRegistries.ITEM, new ResourceLocation(CloudBoots.MODID, "cloud_boots"), new CloudBootsItem(new DefaultArmorMaterial(ArmorMaterials.DIAMOND, "cloud"), new Item.Properties()));
-        IRON_CLOUD_BOOTS = Registry.register(BuiltInRegistries.ITEM, new ResourceLocation(CloudBoots.MODID, "iron_cloud_boots"), new CloudBootsItem(new DefaultArmorMaterial(ArmorMaterials.IRON, "iron"), new Item.Properties()));
-        GOLD_CLOUD_BOOTS = Registry.register(BuiltInRegistries.ITEM, new ResourceLocation(CloudBoots.MODID, "gold_cloud_boots"), new CloudBootsItem(new DefaultArmorMaterial(ArmorMaterials.GOLD, "gold"), new Item.Properties()));
-        DIAMOND_CLOUD_BOOTS = Registry.register(BuiltInRegistries.ITEM, new ResourceLocation(CloudBoots.MODID, "diamond_cloud_boots"), new CloudBootsItem(new DefaultArmorMaterial(ArmorMaterials.DIAMOND, "diamond"), new Item.Properties()));
-        NETHERITE_CLOUD_BOOTS = Registry.register(BuiltInRegistries.ITEM, new ResourceLocation(CloudBoots.MODID, "netherite_cloud_boots"), new CloudBootsItem(new DefaultArmorMaterial(ArmorMaterials.NETHERITE, "netherite"), new Item.Properties()));
+        CLOUD_BOOTS = Registry.register(BuiltInRegistries.ITEM, new ResourceLocation(CloudBoots.MODID, "cloud_boots"), new CloudBootsItem(new DefaultArmorMaterial(ArmorMaterials.DIAMOND, "cloud")));
+        IRON_CLOUD_BOOTS = Registry.register(BuiltInRegistries.ITEM, new ResourceLocation(CloudBoots.MODID, "iron_cloud_boots"), new CloudBootsItem(new DefaultArmorMaterial(ArmorMaterials.IRON, "iron")));
+        GOLD_CLOUD_BOOTS = Registry.register(BuiltInRegistries.ITEM, new ResourceLocation(CloudBoots.MODID, "gold_cloud_boots"), new CloudBootsItem(new DefaultArmorMaterial(ArmorMaterials.GOLD, "gold")));
+        DIAMOND_CLOUD_BOOTS = Registry.register(BuiltInRegistries.ITEM, new ResourceLocation(CloudBoots.MODID, "diamond_cloud_boots"), new CloudBootsItem(new DefaultArmorMaterial(ArmorMaterials.DIAMOND, "diamond")));
+        NETHERITE_CLOUD_BOOTS = Registry.register(BuiltInRegistries.ITEM, new ResourceLocation(CloudBoots.MODID, "netherite_cloud_boots"), new CloudBootsItem(new DefaultArmorMaterial(ArmorMaterials.NETHERITE, "netherite"), Item.Properties::fireResistant));
         GOLDEN_FEATHER = Registry.register(BuiltInRegistries.ITEM, new ResourceLocation(CloudBoots.MODID, "golden_feather"), new GoldenFeatherItem(new Item.Properties()));
     }
 }
