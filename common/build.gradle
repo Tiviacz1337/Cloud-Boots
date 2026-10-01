@@ -2,8 +2,30 @@ architectury {
     common rootProject.enabled_platforms.split(',')
 }
 
-dependencies {
-    modImplementation "net.fabricmc:fabric-loader:$rootProject.fabric_loader_version"
+configurations {
+    shadowCommon
+}
 
-    modImplementation("maven.modrinth:forge-config-api-port:$rootProject.forge_config_api_port_version")
+dependencies {
+    implementation "net.fabricmc:fabric-loader:$rootProject.fabric_loader_version"
+
+    implementation("maven.modrinth:forge-config-api-port:RXbL43Lt")
+}
+
+jar {
+    archiveClassifier = "raw"
+}
+
+java {
+    withSourcesJar()
+}
+
+shadowJar {
+    dependsOn(jar)
+    mainSpec.sourcePaths.clear()
+    from(zipTree(jar.archiveFile))
+
+    configurations = [project.configurations.shadowCommon]
+    archiveClassifier = null
+    from rootProject.file("LICENSE")
 }
