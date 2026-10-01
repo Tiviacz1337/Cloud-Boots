@@ -12,7 +12,7 @@ allprojects {
     group = rootProject.maven_group
     version = rootProject.mod_version
 
-    rapply plugin: 'java'
+    apply plugin: 'java'
     apply plugin: 'com.gradleup.shadow'
 
     tasks.withType(JavaCompile).configureEach {
@@ -39,7 +39,6 @@ subprojects {
 
     dependencies {
         minecraft "net.minecraft:minecraft:$rootProject.minecraft_version"
-        mappings loom.officialMojangMappings()
     }
 
     java {

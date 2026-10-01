@@ -145,7 +145,7 @@ public class CloudBootsItem extends Item {
         if(!CloudBootsConfig.clientSpec.isLoaded()) return;
         if(!CloudBootsConfig.CLIENT.spawnParticles.get()) return;
 
-        if(player.level().random.nextFloat() < chance) {
+        if(player.level().getRandom().nextFloat() < chance) {
             return;
         }
         for(int i = 0; i < count; ++i) {

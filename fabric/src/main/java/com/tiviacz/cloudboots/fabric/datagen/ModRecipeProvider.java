@@ -1,7 +1,7 @@
 package com.tiviacz.cloudboots.fabric.datagen;
 
 import com.tiviacz.cloudboots.fabric.init.ModItems;
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
+import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
 import net.fabricmc.fabric.api.tag.convention.v2.ConventionalItemTags;
 import net.minecraft.core.HolderLookup;
@@ -13,7 +13,7 @@ import net.minecraft.world.item.crafting.Ingredient;
 import java.util.concurrent.CompletableFuture;
 
 public class ModRecipeProvider extends FabricRecipeProvider {
-    public ModRecipeProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> holderProvider) {
+    public ModRecipeProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> holderProvider) {
         super(output, holderProvider);
     }
 

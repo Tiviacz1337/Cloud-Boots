@@ -32,7 +32,7 @@
   ],
   "depends": {
     "fabricloader": "${fabric_loader_dep}",
-    "fabric": "${fabric_api_dep}",
+    "fabric-api": "${fabric_api_dep}",
     "minecraft": "${minecraft_dep}",
     "java": "${java_dep}",
     "forgeconfigapiport": "${forgeconfigapiport_dep}"

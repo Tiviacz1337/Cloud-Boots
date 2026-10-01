@@ -1,16 +1,16 @@
 package com.tiviacz.cloudboots.fabric.datagen;
 
 import com.tiviacz.cloudboots.fabric.init.ModItems;
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
-import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
+import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
+import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagsProvider;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.tags.ItemTags;
 
 import java.util.concurrent.CompletableFuture;
 
-public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
+public class ModItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
 
-    public ModItemTagProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
+    public ModItemTagProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
         super(output, registriesFuture, null);
     }
 
