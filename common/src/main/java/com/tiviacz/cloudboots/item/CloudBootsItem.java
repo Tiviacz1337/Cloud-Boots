@@ -32,6 +32,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.function.Consumer;
 import java.util.function.Supplier;
+import java.util.function.UnaryOperator;
 
 public class CloudBootsItem extends Item {
     public static final ResourceLocation SPEED_MODIFIER = ResourceLocation.fromNamespaceAndPath(CloudBoots.MODID, "armor.speed");
@@ -40,6 +41,21 @@ public class CloudBootsItem extends Item {
     private final Supplier<Double> flyingSpeedModifier;
     private final Supplier<Boolean> negatesFallDamage;
 
+    public CloudBootsItem(ArmorMaterial armorMaterial, ArmorType type) {
+        this(properties -> properties, armorMaterial, type);
+    }
+
+    //Fabric
+    public CloudBootsItem(UnaryOperator<Properties> properties, ArmorMaterial armorMaterial, ArmorType type) {
+        super(properties.apply(new Properties()).stacksTo(1).humanoidArmor(armorMaterial, type));
+        CloudBootsConfig.Server.TierConfig config = CloudBootsConfig.getProperConfig(armorMaterial);
+        this.jumpBoostLevel = config.jumpBoostLevel;
+        this.speedModifier = config.speedModifier;
+        this.flyingSpeedModifier = config.flyingSpeedModifier;
+        this.negatesFallDamage = config.negatesFallDamage;
+    }
+
+    //Neo
     public CloudBootsItem(Properties properties, ArmorMaterial armorMaterial, ArmorType type) {
         super(properties.stacksTo(1).humanoidArmor(armorMaterial, type));
         CloudBootsConfig.Server.TierConfig config = CloudBootsConfig.getProperConfig(armorMaterial);
