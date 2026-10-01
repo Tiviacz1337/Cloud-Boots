@@ -13,6 +13,7 @@ public class ModItems {
     public static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(CloudBoots.MODID);
 
     public static final DeferredItem<Item> CLOUD_BOOTS = ITEMS.registerItem("cloud_boots", (properties) -> new CloudBootsItem(properties, ModArmorMaterials.CLOUD, ArmorType.BOOTS));
+    public static final DeferredItem<Item> COPPER_CLOUD_BOOTS = ITEMS.registerItem("copper_cloud_boots", (properties) -> new CloudBootsItem(properties, ModArmorMaterials.COPPER, ArmorType.BOOTS));
     public static final DeferredItem<Item> IRON_CLOUD_BOOTS = ITEMS.registerItem("iron_cloud_boots", (properties) -> new CloudBootsItem(properties, ModArmorMaterials.IRON, ArmorType.BOOTS));
     public static final DeferredItem<Item> GOLD_CLOUD_BOOTS = ITEMS.registerItem("gold_cloud_boots", (properties) -> new CloudBootsItem(properties, ModArmorMaterials.GOLD, ArmorType.BOOTS));
     public static final DeferredItem<Item> DIAMOND_CLOUD_BOOTS = ITEMS.registerItem("diamond_cloud_boots", (properties) -> new CloudBootsItem(properties, ModArmorMaterials.DIAMOND, ArmorType.BOOTS));

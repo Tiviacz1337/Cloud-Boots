@@ -28,6 +28,7 @@ public final class CloudBootsFabric implements ModInitializer {
     public void addCreative() {
         ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.COMBAT).register(tab -> {
             tab.accept(ModItems.CLOUD_BOOTS);
+            tab.accept(ModItems.COPPER_CLOUD_BOOTS);
             tab.accept(ModItems.IRON_CLOUD_BOOTS);
             tab.accept(ModItems.GOLD_CLOUD_BOOTS);
             tab.accept(ModItems.DIAMOND_CLOUD_BOOTS);

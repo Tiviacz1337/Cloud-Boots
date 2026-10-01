@@ -14,6 +14,7 @@ import net.minecraft.world.item.equipment.ArmorType;
 
 public class ModItems {
     public static Item CLOUD_BOOTS;
+    public static Item COPPER_CLOUD_BOOTS;
     public static Item IRON_CLOUD_BOOTS;
     public static Item GOLD_CLOUD_BOOTS;
     public static Item DIAMOND_CLOUD_BOOTS;
@@ -22,6 +23,7 @@ public class ModItems {
 
     public static void register() {
         CLOUD_BOOTS = Registry.register(BuiltInRegistries.ITEM, Identifier.fromNamespaceAndPath(CloudBoots.MODID, "cloud_boots"), new CloudBootsItem(props -> props.setId(resourceKey("cloud_boots")), ModArmorMaterials.CLOUD, ArmorType.BOOTS));
+        COPPER_CLOUD_BOOTS = Registry.register(BuiltInRegistries.ITEM, Identifier.fromNamespaceAndPath(CloudBoots.MODID, "copper_cloud_boots"), new CloudBootsItem(props -> props.setId(resourceKey("copper_cloud_boots")), ModArmorMaterials.COPPER, ArmorType.BOOTS));
         IRON_CLOUD_BOOTS = Registry.register(BuiltInRegistries.ITEM, Identifier.fromNamespaceAndPath(CloudBoots.MODID, "iron_cloud_boots"), new CloudBootsItem(props -> props.setId(resourceKey("iron_cloud_boots")), ModArmorMaterials.IRON, ArmorType.BOOTS));
         GOLD_CLOUD_BOOTS = Registry.register(BuiltInRegistries.ITEM, Identifier.fromNamespaceAndPath(CloudBoots.MODID, "gold_cloud_boots"), new CloudBootsItem(props -> props.setId(resourceKey("gold_cloud_boots")), ModArmorMaterials.GOLD, ArmorType.BOOTS));
         DIAMOND_CLOUD_BOOTS = Registry.register(BuiltInRegistries.ITEM, Identifier.fromNamespaceAndPath(CloudBoots.MODID, "diamond_cloud_boots"), new CloudBootsItem(props -> props.setId(resourceKey("diamond_cloud_boots")), ModArmorMaterials.DIAMOND, ArmorType.BOOTS));

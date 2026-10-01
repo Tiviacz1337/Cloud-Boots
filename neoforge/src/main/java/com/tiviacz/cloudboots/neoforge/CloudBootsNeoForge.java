@@ -38,6 +38,7 @@ public final class CloudBootsNeoForge {
     public void addCreative(BuildCreativeModeTabContentsEvent event) {
         if(event.getTabKey() == CreativeModeTabs.COMBAT) {
             event.accept(ModItems.CLOUD_BOOTS);
+            event.accept(ModItems.COPPER_CLOUD_BOOTS);
             event.accept(ModItems.IRON_CLOUD_BOOTS);
             event.accept(ModItems.GOLD_CLOUD_BOOTS);
             event.accept(ModItems.DIAMOND_CLOUD_BOOTS);
