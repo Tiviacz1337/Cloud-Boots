@@ -6,7 +6,7 @@
       "item": "cloudboots:golden_feather"
     },
     "B": {
-      "item": "minecraft:diamond"
+      "tag": "forge:gems/diamond"
     }
   },
   "pattern": [
@@ -16,6 +16,5 @@
   ],
   "result": {
     "item": "cloudboots:diamond_cloud_boots"
-  },
-  "show_notification": true
+  }
 }

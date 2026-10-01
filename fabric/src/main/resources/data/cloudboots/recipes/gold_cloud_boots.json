@@ -6,7 +6,7 @@
       "item": "cloudboots:golden_feather"
     },
     "B": {
-      "item": "minecraft:gold_ingot"
+      "tag": "c:gold_ingots"
     }
   },
   "pattern": [
@@ -16,6 +16,5 @@
   ],
   "result": {
     "item": "cloudboots:gold_cloud_boots"
-  },
-  "show_notification": true
+  }
 }

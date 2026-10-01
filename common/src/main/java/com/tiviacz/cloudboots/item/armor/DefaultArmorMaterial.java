@@ -17,7 +17,7 @@ public class DefaultArmorMaterial implements ArmorMaterial, ICustomArmorMaterial
     public DefaultArmorMaterial(ArmorMaterial defaultMaterial, String materialName) {
         this.defaultMaterial = defaultMaterial;
         this.materialName = materialName;
-        this.cloudRepairIngredient = new LazyLoadedValue(() -> Ingredient.of(Items.GOLD_INGOT, Platform.getItem(ModItems.GOLDEN_FEATHER_ID).get()));
+        this.cloudRepairIngredient = new LazyLoadedValue(() -> Ingredient.of(Items.GOLD_INGOT, ModItems.getItem(ModItems.GOLDEN_FEATHER_ID).get()));
     }
 
     @Override

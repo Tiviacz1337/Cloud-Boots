@@ -62,7 +62,7 @@ dependencies {
 
     modImplementation("maven.modrinth:modmenu:$rootProject.modmenu_version")
     modCompileOnly("maven.modrinth:trinkets:$rootProject.trinkets_version")
-    modCompileOnly("maven.modrinth:jei:$rootProject.jei_version_fabric")
+    modImplementation("maven.modrinth:jei:$rootProject.jei_version_fabric")
     modImplementation "dev.onyxstudios.cardinal-components-api:cardinal-components-base:5.2.3"
     modImplementation "dev.onyxstudios.cardinal-components-api:cardinal-components-entity:5.2.3"
 }

@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "A": {
+      "item": "cloudboots:golden_feather"
+    },
+    "B": {
+      "tag": "forge:ingots/gold"
+    }
+  },
+  "pattern": [
+    "A A",
+    "B B",
+    "B B"
+  ],
+  "result": {
+    "item": "cloudboots:gold_cloud_boots"
+  }
+}
