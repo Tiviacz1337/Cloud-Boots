@@ -26,6 +26,10 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                         .define('A', ConventionalItemTags.GOLD_INGOTS).define('B', ConventionalItemTags.FEATHERS)
                         .pattern("AAA").pattern("ABA").pattern("AAA")
                         .unlockedBy("has_feathers", has(ConventionalItemTags.FEATHERS)).save(recipeOutput);
+                ShapedRecipeBuilder.shaped(registries.lookupOrThrow(Registries.ITEM), RecipeCategory.TOOLS, ModItems.COPPER_CLOUD_BOOTS, 1)
+                        .define('A', ModItems.GOLDEN_FEATHER).define('B', ConventionalItemTags.COPPER_INGOTS)
+                        .pattern("A A").pattern("B B").pattern("B B")
+                        .unlockedBy("has_copper_ingots", has(ConventionalItemTags.COPPER_INGOTS)).save(recipeOutput);
                 ShapedRecipeBuilder.shaped(registries.lookupOrThrow(Registries.ITEM), RecipeCategory.TOOLS, ModItems.IRON_CLOUD_BOOTS, 1)
                         .define('A', ModItems.GOLDEN_FEATHER).define('B', ConventionalItemTags.IRON_INGOTS)
                         .pattern("A A").pattern("B B").pattern("B B")

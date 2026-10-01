@@ -9,6 +9,9 @@ import java.util.Locale;
 
 public class CloudBootsConfig {
     public static Server.TierConfig getProperConfig(ArmorMaterial material) {
+        if(material == ModArmorMaterials.COPPER) {
+            return CloudBootsConfig.SERVER.copper;
+        }
         if(material == ModArmorMaterials.IRON) {
             return CloudBootsConfig.SERVER.iron;
         }
@@ -25,6 +28,7 @@ public class CloudBootsConfig {
     }
 
     public static class Server {
+        public final TierConfig copper;
         public final TierConfig iron;
         public final TierConfig gold;
         public final TierConfig diamond;
@@ -35,6 +39,7 @@ public class CloudBootsConfig {
             builder.comment("Server config settings")
                     .push("server");
 
+            copper = new TierConfig(builder, "Copper", 0, 0.025D, 0.005D, true);
             iron = new TierConfig(builder, "Iron", 1, 0.05D, 0.01D, true);
             gold = new TierConfig(builder, "Gold", 2, 0.10D, 0.02D, true);
             diamond = new TierConfig(builder, "Diamond", 3, 0.15D, 0.025D, true);

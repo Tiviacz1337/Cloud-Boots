@@ -9,6 +9,7 @@ import java.util.function.Supplier;
 
 public class ModItems {
     public static final Identifier CLOUD_BOOTS_ID = Identifier.fromNamespaceAndPath(CloudBoots.MODID, "cloud_boots");
+    public static final Identifier COPPER_CLOUD_BOOTS_ID = Identifier.fromNamespaceAndPath(CloudBoots.MODID, "copper_cloud_boots");
     public static final Identifier IRON_CLOUD_BOOTS_ID = Identifier.fromNamespaceAndPath(CloudBoots.MODID, "iron_cloud_boots");
     public static final Identifier GOLD_CLOUD_BOOTS_ID = Identifier.fromNamespaceAndPath(CloudBoots.MODID, "gold_cloud_boots");
     public static final Identifier DIAMOND_CLOUD_BOOTS_ID = Identifier.fromNamespaceAndPath(CloudBoots.MODID, "diamond_cloud_boots");
