@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "cloudboots:golden_feather"
+        "recipes": "cloudboots:golden_feather"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

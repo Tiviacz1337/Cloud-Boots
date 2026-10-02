@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "cloudboots:netherite_cloud_boots_smithing"
+        "recipes": "cloudboots:netherite_cloud_boots_smithing"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

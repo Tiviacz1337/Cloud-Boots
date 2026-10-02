@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "cloudboots:copper_cloud_boots"
+        "recipes": "cloudboots:copper_cloud_boots"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

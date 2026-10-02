@@ -37,8 +37,8 @@ dependencies {
     shadowCommon(project(path: ":common", configuration: "transformProductionNeoForge")) { transitive = false }
 
     //Optional
-    implementation("maven.modrinth:curios:BI7D0sbK")
-    implementation("maven.modrinth:jei:2Uf4rjR5")
+    compileOnly("maven.modrinth:curios:LeVAnMq4")
+    implementation("maven.modrinth:jei:KZ5QDJ79")
 }
 
 processResources {

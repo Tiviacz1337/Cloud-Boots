@@ -11,11 +11,11 @@ on:
           - neoforge
 
 env:
-  MINECRAFT_VERSION: 26.2
+  MINECRAFT_VERSION: 26.3
   JAVA_VERSION: 25
-  VERSION: 26.2-3.0.3
-  RELEASE_NAME_CURSEFORGE: "cloudboots-${{ inputs.loader }}-26.2-3.0.3"
-  RELEASE_NAME_MODRINTH: "[26.2] Cloud Boots 3.0.3"
+  VERSION: 26.3-3.0.3
+  RELEASE_NAME_CURSEFORGE: "cloudboots-${{ inputs.loader }}-26.3-3.0.3"
+  RELEASE_NAME_MODRINTH: "[26.3] Cloud Boots 3.0.3"
   MODRINTH_TOKEN: ${{ secrets.MODRINTH }}
   CURSEFORGE_TOKEN: ${{ secrets.CURSEFORGE }}
 

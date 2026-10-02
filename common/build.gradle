@@ -9,7 +9,7 @@ configurations {
 dependencies {
     implementation "net.fabricmc:fabric-loader:$rootProject.fabric_loader_version"
 
-    implementation("maven.modrinth:forge-config-api-port:RXbL43Lt")
+    implementation("maven.modrinth:forge-config-api-port:c1wkPZ5n")
 }
 
 jar {

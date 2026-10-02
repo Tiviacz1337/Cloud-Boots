@@ -2,6 +2,6 @@
   "parent": "minecraft:item/generated",
   "textures": {
     "layer0": "cloudboots:item/iron_cloud_boots",
-    "layer1": "minecraft:trims/items/boots_trim_iron"
+    "layer1": "minecraft:trims/items/boots_trim_iron_darker"
   }
 }

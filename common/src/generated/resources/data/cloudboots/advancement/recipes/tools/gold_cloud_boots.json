@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "cloudboots:gold_cloud_boots"
+        "recipes": "cloudboots:gold_cloud_boots"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
