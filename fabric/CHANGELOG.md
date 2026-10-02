@@ -1,3 +1,4 @@
+✨ Trims can be applied to Cloud Boots  
 ✨ Netherite Cloud Boots are fire resistant  
 🐛 Fixed wrong Golden Feather recipe  
 
