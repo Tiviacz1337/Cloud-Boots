@@ -9,8 +9,8 @@ architectury {
 }
 
 allprojects {
-    group = rootProject.maven_group
-    version = rootProject.mod_version
+    group = rootProject.mod_group_id
+    version = "$project.name-$rootProject.minecraft_version-$rootProject.mod_version"
 
     apply plugin: 'java'
     apply plugin: 'com.gradleup.shadow'
@@ -30,7 +30,7 @@ subprojects {
     apply plugin: 'architectury-plugin'
 
     base {
-        archivesName = "$rootProject.archives_name-$project.name-$rootProject.minecraft_version"
+        archivesName = rootProject.mod_id
     }
 
     loom {
