@@ -8,7 +8,8 @@ displayURL = "${mod_display_url}"
 issueTrackerURL = "${mod_issue_tracker_url}"
 authors = "${mod_authors}"
 description = '''${mod_description}'''
-logoFile = "assets/${mod_id}/icon.png"
+iconFile = "assets/${mod_id}/icon.png"
+bannerFile = "assets/${mod_id}/icon.png"
 
 [[mixins]]
 config="${mod_id}.mixins.json"
