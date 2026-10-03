@@ -55,39 +55,31 @@ dependencies {
     common(project(path: ':common', configuration: 'namedElements')) { transitive = false }
     shadowBundle project(path: ':common', configuration: 'transformProductionFabric')
 
-    modImplementation("maven.modrinth:forge-config-api-port:$rootProject.forge_config_api_port_version")
-    modImplementation("maven.modrinth:forge-config-screens:$rootProject.forge_config_screens_version_fabric")
+    modImplementation("maven.modrinth:forge-config-api-port:HvR3IdRE")
+    modImplementation("maven.modrinth:forge-config-screens:nwy63zfI")
     api 'com.electronwill.night-config:core:3.8.1'
     api 'com.electronwill.night-config:toml:3.8.1'
 
-    modImplementation("maven.modrinth:modmenu:$rootProject.modmenu_version")
-    modCompileOnly("maven.modrinth:trinkets:$rootProject.trinkets_version")
-    modImplementation("maven.modrinth:jei:$rootProject.jei_version_fabric")
+    modImplementation("maven.modrinth:modmenu:lEkperf6")
+    modCompileOnly("maven.modrinth:trinkets:AHxQGtuC")
+    modImplementation("maven.modrinth:jei:wbPLxn0B")
     modImplementation "dev.onyxstudios.cardinal-components-api:cardinal-components-base:5.2.3"
     modImplementation "dev.onyxstudios.cardinal-components-api:cardinal-components-entity:5.2.3"
 }
 
 processResources {
     var replaceProperties = [
-            minecraft_version      : minecraft_version,
-            minecraft_version_range: minecraft_version_range,
-            forge_version          : forge_version,
-            forge_loader_version   : forge_loader_version,
-            mod_issue_tracker      : mod_issue_tracker,
-            mod_source             : mod_source,
-            mod_url                : mod_url,
-            mod_id                 : mod_id,
-            mod_name               : mod_name,
-            mod_display_name       : mod_display_name,
-            mod_license            : mod_license,
-            mod_version            : mod_version,
-            mod_authors            : mod_authors,
-            mod_description        : mod_description,
-            fabric_loader_dep      : fabric_loader_dep,
-            fabric_api_dep         : fabric_api_dep,
-            minecraft_dep          : minecraft_dep,
-            java_dep               : java_dep,
-            forgeconfigapiport_dep : forgeconfigapiport_dep
+            minecraft_version               : minecraft_version,
+            minecraft_version_range_fabric  : minecraft_version_range_fabric,
+            mod_id                          : mod_id,
+            mod_name                        : mod_name,
+            mod_display_name                : mod_display_name,
+            mod_license                     : mod_license,
+            mod_version                     : mod_version,
+            mod_authors                     : mod_authors,
+            mod_description                 : mod_description,
+            mod_display_url                 : mod_display_url,
+            mod_issue_tracker_url           : mod_issue_tracker_url
     ]
     inputs.properties replaceProperties
 
@@ -99,7 +91,6 @@ processResources {
 shadowJar {
     configurations = [project.configurations.shadowBundle]
     archiveClassifier = 'dev-shadow'
-    destinationDirectory.set(layout.buildDirectory.dir("intermediate-libs"))
 }
 
 remapJar {

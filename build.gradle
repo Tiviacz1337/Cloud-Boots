@@ -9,32 +9,27 @@ architectury {
 }
 
 allprojects {
-    group = rootProject.maven_group
-    version = rootProject.mod_version
+    group = rootProject.mod_group_id
+    version = "$project.name-$rootProject.minecraft_version-$rootProject.mod_version"
 
     repositories {
         maven {
             name = 'ParchmentMC'
             url = 'https://maven.parchmentmc.org'
         }
+        maven { url 'https://api.modrinth.com/maven' }
     }
 }
 
 subprojects {
     apply plugin: 'dev.architectury.loom'
     apply plugin: 'architectury-plugin'
-    apply plugin: 'maven-publish'
 
     base {
-        archivesName = "$rootProject.archives_name-$project.name-$rootProject.minecraft_version"
-    }
-
-    repositories {
-        maven { url 'https://api.modrinth.com/maven' }
+        archivesName = rootProject.mod_id
     }
 
     loom {
-        //accessWidenerPath = project(":common").file("src/main/resources/${mod_id}.accesswidener")
         silentMojangMappingsLicense()
     }
 
@@ -43,30 +38,17 @@ subprojects {
         // Use mojmap with ParchmentMC
         mappings loom.layered() {
             officialMojangMappings()
-            parchment("org.parchmentmc.data:parchment-${rootProject.minecraft_version}:${rootProject.parchment_version}@zip")
+            parchment("org.parchmentmc.data:parchment-${rootProject.minecraft_version}:2023.09.03@zip")
         }
     }
 
     java {
-        //withSourcesJar()
+        withSourcesJar()
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
     }
 
     tasks.withType(JavaCompile).configureEach {
         it.options.release = 17
-    }
-
-    publishing {
-        publications {
-            mavenJava(MavenPublication) {
-                artifactId = base.archivesName.get()
-                from components.java
-            }
-        }
-
-        repositories {
-
-        }
     }
 }

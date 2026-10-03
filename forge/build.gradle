@@ -41,39 +41,32 @@ loom {
 }
 
 dependencies {
-    forge "net.minecraftforge:forge:$rootProject.forge_version"
+    forge "net.minecraftforge:forge:$rootProject.minecraft_version-$rootProject.forge_version"
 
     common(project(path: ':common', configuration: 'namedElements')) { transitive = false }
     shadowBundle project(path: ':common', configuration: 'transformProductionForge')
 
-    modImplementation("maven.modrinth:forge-config-screens:$rootProject.forge_config_screens_version_forge")
+    modImplementation("maven.modrinth:forge-config-screens:YUDLu26S")
 
     //Optional
-    modImplementation("maven.modrinth:curios:$rootProject.curios_version")
-    modImplementation("maven.modrinth:jei:$rootProject.jei_version_forge")
+    modImplementation("maven.modrinth:curios:IPQlZkz1")
+    modImplementation("maven.modrinth:jei:p7yZWpEg")
 }
 
 processResources {
     var replaceProperties = [
-            minecraft_version      : minecraft_version,
-            minecraft_version_range: minecraft_version_range,
-            forge_version          : forge_version,
-            forge_loader_version   : forge_loader_version,
-            mod_issue_tracker      : mod_issue_tracker,
-            mod_source             : mod_source,
-            mod_url                : mod_url,
-            mod_id                 : mod_id,
-            mod_name               : mod_name,
-            mod_display_name       : mod_display_name,
-            mod_license            : mod_license,
-            mod_version            : mod_version,
-            mod_authors            : mod_authors,
-            mod_description        : mod_description,
-            fabric_loader_dep      : fabric_loader_dep,
-            fabric_api_dep         : fabric_api_dep,
-            minecraft_dep          : minecraft_dep,
-            java_dep               : java_dep,
-            forgeconfigapiport_dep : forgeconfigapiport_dep
+            minecraft_version                   : minecraft_version,
+            minecraft_version_range_forge       : minecraft_version_range_forge,
+            loader_version_range                : loader_version_range,
+            mod_id                              : mod_id,
+            mod_name                            : mod_name,
+            mod_display_name                    : mod_display_name,
+            mod_license                         : mod_license,
+            mod_version                         : mod_version,
+            mod_authors                         : mod_authors,
+            mod_description                     : mod_description,
+            mod_display_url                     : mod_display_url,
+            mod_issue_tracker_url               : mod_issue_tracker_url
     ]
     inputs.properties replaceProperties
 
@@ -85,10 +78,8 @@ processResources {
 shadowJar {
     configurations = [project.configurations.shadowBundle]
     archiveClassifier = 'dev-shadow'
-    destinationDirectory.set(layout.buildDirectory.dir("intermediate-libs"))
 }
 
 remapJar {
     inputFile.set shadowJar.archiveFile
-    //atAccessWideners.add("${rootProject.mod_id}.accesswidener")
 }
