@@ -96,3 +96,37 @@ shadowJar {
 remapJar {
     inputFile.set shadowJar.archiveFile
 }
+
+publishMods {
+    displayName = "cloudboots-fabric-$rootProject.minecraft_version-$rootProject.mod_version"
+    type = STABLE
+
+    file = remapJar.archiveFile
+
+    def changelogFile = file('CHANGELOG.md')
+    changelog = changelogFile.exists() ? changelogFile.text : 'CHANGELOG.md not found'
+
+    modLoaders.add("fabric")
+
+    curseforge {
+        projectId = "291246"
+        version = rootProject.mod_version
+        accessToken = providers.gradleProperty('CURSEFORGE_TOKEN')
+        minecraftVersions.add(rootProject.minecraft_version)
+        javaVersions.add(JavaVersion.VERSION_17)
+        client = true
+        server = true
+
+        requires("fabric-api", "forge-config-api-port")
+    }
+
+    modrinth {
+        projectId = "hkztOJro"
+        version = minecraft_version + "-" + mod_version
+        accessToken = providers.gradleProperty('MODRINTH_TOKEN')
+        minecraftVersions.add(rootProject.minecraft_version)
+        environment = CLIENT_AND_SERVER
+
+        requires("fabric-api", "forge-config-api-port")
+    }
+}
