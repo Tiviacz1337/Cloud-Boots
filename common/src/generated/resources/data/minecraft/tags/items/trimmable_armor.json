@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "cloudboots:cloud_boots",
+    "cloudboots:iron_cloud_boots",
+    "cloudboots:gold_cloud_boots",
+    "cloudboots:diamond_cloud_boots",
+    "cloudboots:netherite_cloud_boots"
+  ]
+}
