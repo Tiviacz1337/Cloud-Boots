@@ -21,7 +21,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
 
     @Override
     public void buildRecipes(Consumer<FinishedRecipe> writer) {
-        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModItems.GOLDEN_FEATHER, 1)
+        /*ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModItems.GOLDEN_FEATHER, 1)
                 .define('A', Items.FEATHER).define('B', Items.GOLD_INGOT)
                 .pattern("AAA").pattern("ABA").pattern("AAA")
                 .unlockedBy("has_feathers", has(Items.FEATHER)).save(writer, id("golden_feather"));
@@ -42,7 +42,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                         Ingredient.of(ModItems.DIAMOND_CLOUD_BOOTS),
                         Ingredient.of(Items.NETHERITE_INGOT),
                         RecipeCategory.TOOLS, ModItems.NETHERITE_CLOUD_BOOTS)
-                .unlocks("has_netherite_ingots", has(Items.NETHERITE_INGOT)).save(writer, id("netherite_cloud_boots"));
+                .unlocks("has_netherite_ingots", has(Items.NETHERITE_INGOT)).save(writer, id("netherite_cloud_boots"));*/
     }
 
     public static ResourceLocation id(String name) {
