@@ -49,7 +49,7 @@ dependencies {
 
     //Optional
     modImplementation("maven.modrinth:curios:yohfFbgD")
-    modImplementation("maven.modrinth:jei:Tn0dgwL0")
+    modCompileOnly("maven.modrinth:jei:Tn0dgwL0")
 }
 
 processResources {

@@ -61,7 +61,7 @@ dependencies {
 
     //Optional
     modImplementation("maven.modrinth:modmenu:6lgOkclV")
-    modCompileOnly("maven.modrinth:trinkets:JagCscwi")
+    modImplementation("maven.modrinth:trinkets:JagCscwi")
     modImplementation("maven.modrinth:jei:TvqzuFwN")
     modImplementation "dev.onyxstudios.cardinal-components-api:cardinal-components-base:6.1.3"
     modImplementation "dev.onyxstudios.cardinal-components-api:cardinal-components-entity:6.1.3"
