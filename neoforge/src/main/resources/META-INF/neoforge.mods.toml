@@ -1,14 +1,14 @@
 modLoader = "javafml" #mandatory
 loaderVersion = "${loader_version_range}" #mandatory
 license = "${mod_license}"
-issueTrackerURL="${mod_issue_tracker}"
+issueTrackerURL="${mod_issue_tracker_url}"
 logoFile="assets/${mod_id}/icon.png"
 
 [[mods]]
 modId = "${mod_id}" #mandatory
 version = "${mod_version}" #mandatory
 displayName = "${mod_display_name}" #mandatory
-displayURL="${mod_url}"
+displayURL="${mod_display_url}"
 authors = "${mod_authors}"
 description = '''${mod_description}'''
 
@@ -18,13 +18,13 @@ config="${mod_id}.mixins.json"
 [[dependencies.${ mod_id }]]
 modId = "neoforge"
 type = "required"
-versionRange = "${neoforge_version_range}" #mandatory
+versionRange = " " #mandatory
 ordering = "NONE"
 side = "BOTH"
 
 [[dependencies.${ mod_id }]]
 modId = "minecraft"
 type = "required"
-versionRange = "${minecraft_version_range}"
+versionRange = "${minecraft_version_range_neoforge}"
 ordering = "NONE"
 side = "BOTH"

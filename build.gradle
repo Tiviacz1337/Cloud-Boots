@@ -9,8 +9,8 @@ architectury {
 }
 
 allprojects {
-    group = rootProject.maven_group
-    version = rootProject.mod_version
+    group = rootProject.mod_group_id
+    version = "$project.name-$rootProject.minecraft_version-$rootProject.mod_version"
 
     repositories {
         maven {
@@ -27,7 +27,11 @@ subprojects {
     apply plugin: 'maven-publish'
 
     base {
-        archivesName = "$rootProject.archives_name-$project.name-$rootProject.minecraft_version"
+        archivesName = rootProject.mod_id
+    }
+
+    loom {
+        silentMojangMappingsLicense()
     }
 
     dependencies {
@@ -35,12 +39,12 @@ subprojects {
         // Use mojmap with ParchmentMC
         mappings loom.layered() {
             officialMojangMappings()
-            parchment("org.parchmentmc.data:parchment-${rootProject.minecraft_version}:${rootProject.parchment_version}@zip")
+            parchment("org.parchmentmc.data:parchment-${rootProject.minecraft_version}:2025.06.15@zip")
         }
     }
 
     java {
-        //withSourcesJar()
+        withSourcesJar()
         sourceCompatibility = JavaVersion.VERSION_21
         targetCompatibility = JavaVersion.VERSION_21
     }
