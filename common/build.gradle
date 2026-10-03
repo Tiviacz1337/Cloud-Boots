@@ -5,5 +5,5 @@ architectury {
 dependencies {
     modImplementation "net.fabricmc:fabric-loader:$rootProject.fabric_loader_version"
 
-    modImplementation("maven.modrinth:forge-config-api-port:$rootProject.forge_config_api_port_version")
+    modImplementation("maven.modrinth:forge-config-api-port:YbUUjWdw")
 }

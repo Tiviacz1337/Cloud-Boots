@@ -48,32 +48,24 @@ dependencies {
     shadowBundle project(path: ':common', configuration: 'transformProductionNeoForge')
 
     //Optional
-    modImplementation("maven.modrinth:curios:$rootProject.curios_version")
-    modImplementation("maven.modrinth:jei:$rootProject.jei_version_neo")
+    modImplementation("maven.modrinth:curios:UW476H0a")
+    modImplementation("maven.modrinth:jei:ru8HioLg")
 }
 
 processResources {
     var replaceProperties = [
-            minecraft_version      : minecraft_version,
-            minecraft_version_range: minecraft_version_range,
-            neoforge_version       : neoforge_version,
-            neoforge_version_range : neoforge_version_range,
-            loader_version_range   : loader_version_range,
-            mod_issue_tracker      : mod_issue_tracker,
-            mod_source             : mod_source,
-            mod_url                : mod_url,
-            mod_id                 : mod_id,
-            mod_name               : mod_name,
-            mod_display_name       : mod_display_name,
-            mod_license            : mod_license,
-            mod_version            : mod_version,
-            mod_authors            : mod_authors,
-            mod_description        : mod_description,
-            fabric_loader_dep      : fabric_loader_dep,
-            fabric_api_dep         : fabric_api_dep,
-            minecraft_dep          : minecraft_dep,
-            java_dep               : java_dep,
-            forgeconfigapiport_dep : forgeconfigapiport_dep
+            minecraft_version                   : minecraft_version,
+            minecraft_version_range_neoforge    : minecraft_version_range_neoforge,
+            loader_version_range                : loader_version_range,
+            mod_id                              : mod_id,
+            mod_name                            : mod_name,
+            mod_display_name                    : mod_display_name,
+            mod_license                         : mod_license,
+            mod_version                         : mod_version,
+            mod_authors                         : mod_authors,
+            mod_description                     : mod_description,
+            mod_display_url                     : mod_display_url,
+            mod_issue_tracker_url               : mod_issue_tracker_url,
     ]
     inputs.properties replaceProperties
 
@@ -85,7 +77,6 @@ processResources {
 shadowJar {
     configurations = [project.configurations.shadowBundle]
     archiveClassifier = 'dev-shadow'
-    destinationDirectory.set(layout.buildDirectory.dir("intermediate-libs"))
 }
 
 remapJar {
